@@ -1,0 +1,2887 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="../static/libs/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="../static/libs/jquery-ui.structure.min.css"/>
+    <link rel="stylesheet" href="../static/libs/jquery-ui.theme.min.css"/>
+    <link rel="stylesheet" href="css/tooltip.css"/>
+    <link rel="stylesheet" href="css/toggle.css"/>
+    <link rel="stylesheet" href="css/options.css"/>
+    <link rel="stylesheet" href="css/buttons.css"/>
+</head>
+<body>
+<div id="overall-state" class="fixed">
+    <b id="onoff" style="padding: 5px;">ON</b>
+    <io-toggle id="onoff-toggle" class="control onoff" check="true" style="transform: translatey(0px);">
+        <button id="onoff-button" class="checkbox onoff" check="true"></button>
+    </io-toggle>
+    <i style="margin-left: 10px;display: none;" class="locked-icon fas fa-lock"></i>
+</div>
+<div id="login" class="fixed">
+    <div style="padding: 10px;">
+        <form id="login_form">
+            <h2 style="margin-top: 0px;">Login</h2>
+            <div id="login_remember_me">
+                Remember me:
+                <input type="checkbox" checked>
+            </div>
+            <div style="display: flex">
+                <div>
+                    <input id="login_username" type="text" name="user" placeholder="Username"><br>
+                    <a href="https://pury.fi/site/wp-login.php?action=register" tabindex="-1">Register</a>
+                </div>
+                <div>
+                    <input id="login_password" type="password" name="password" placeholder="Password"><br>
+                    <a href="https://pury.fi/site/wp-login.php?action=lostpassword" tabindex="-1">I forgot my password</a>
+                </div>
+            </div>
+            <input id="login_button" type="submit" value = "Log In" />
+            <div id="login_message"></div>
+        </form>
+        <div id="profile" style="display:none;">
+            <h2 id="profile_name" style="margin-top: 0px;margin-right: 40px;"></h2>
+            <div id="logout">
+                <div id="logout_button">
+                    <i  class="fas fam fa-sign-out-alt"></i>
+                </div>
+            </div>
+            <br>
+            <div id="profile_tier"></div>
+        </div>
+    </div>
+</div>
+<div id="sidebar">
+    <div class="fixed">
+        <header style="display: block ruby">
+            <h1>PuryFi</h1><div id="version"></div>
+        </header>
+        <b>Settings:</b>
+        <nav>
+            <ul class="tabs">
+                <li>
+                    <a id="menu-entry-general" href="#general" class="tab tab-left tab-selected" content="content-general">General</a>
+                </li>
+                <li>
+                    <a id="menu-entry-filetypes" href="#filetypes" class="tab tab-left" content="content-filetypes">File Types</a>
+                </li>
+                <li>
+                    <a id="menu-entry-censoring" href="#censoring" class="tab tab-left" content="content-censoring">Censoring</a>
+                </li>
+                <li>
+                    <a href="#advanced"  class="tab tab-left" content="content-advanced">Advanced</a>
+                </li>
+                <li>
+                    <a id="menu-entry-whitelist" href="#whitelist"  class="tab tab-left" content="content-whitelist">Whitelist & Blacklist</a>
+                </li>
+                <li>
+                    <a id="menu-entry-video" href="#video" class="tab tab-left" content="content-video">Video</a>
+                </li>
+            </ul>
+        </nav>
+        <footer>
+            <a target="_blank" href="https://www.patreon.com/puryfi"><img id="mascot"  src="../images/girl_small_patreon.png"/></a>
+        </footer>
+    </div>
+</div>
+<main>
+    <div id="content-general" class="content content-displayed">
+        <header>
+            <h1>General</h1>
+            <p>
+                <span>Select which content is censored:</span>
+            </p>
+        </header>
+        <section>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Label</th>
+                    <th>Censored</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <button class="labelButton fface" type="button" id="FACEFEMALE">
+                        </button>
+                    </td>
+                    <td><b>♀ Face</b></td>
+                    <td>
+                        <io-toggle  label="FACEFEMALE" class="control labelToggle">
+                            <button label="FACEFEMALE" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton mface" type="button" id="FACEMALE"></button>
+                        </button>
+                    </td>
+                    <td><b>♂ Face</b></td>
+                    <td>
+                        <io-toggle label="FACEMALE" class="control labelToggle">
+                            <button label="FACEMALE" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton apite" type="button" id="ARMPITSEXPOSED">
+                        </button>
+                    </td>
+                    <td><b>Armpit Exposed</b></td>
+                    <td>
+                        <io-toggle label="ARMPITSEXPOSED" class="control labelToggle">
+                            <button label="ARMPITSEXPOSED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton apitc" type="button" id="ARMPITSCOVERED">
+                        </button>
+                    </td>
+                    <td><b>Armpit Covered</b></td>
+                    <td>
+                        <io-toggle label="ARMPITSCOVERED" class="control labelToggle">
+                            <button label="ARMPITSCOVERED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton ftite" type="button" id="FEMALEBREASTEXPOSED">
+                        </button>
+                    </td>
+                    <td><b>♀ Breast Exposed</b></td>
+                    <td>
+                        <io-toggle label="FEMALEBREASTEXPOSED" class="control labelToggle">
+                            <button label="FEMALEBREASTEXPOSED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton ftitc" type="button" id="FEMALEBREASTCOVERED">
+                        </button>
+                    </td>
+                    <td><b>♀ Breast Covered</b></td>
+                    <td>
+                        <io-toggle label="FEMALEBREASTCOVERED" class="control labelToggle">
+                            <button label="FEMALEBREASTCOVERED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton mtite" type="button" id="MALEBREASTEXPOSED">
+                        </button>
+                    </td>
+                    <td><b>♂ Breast Exposed</b></td>
+                    <td>
+                        <io-toggle label="MALEBREASTEXPOSED" class="control labelToggle">
+                            <button label="MALEBREASTEXPOSED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton mtitc" type="button" id="MALEBREASTCOVERED">
+                        </button>
+                    </td>
+                    <td><b>♂ Breast Covered</b></td>
+                    <td>
+                        <io-toggle label="MALEBREASTCOVERED" class="control labelToggle">
+                            <button label="MALEBREASTCOVERED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton bellye" type="button" id="BELLYEXPOSED">
+                        </button>
+                    </td>
+                    <td><b>Belly Exposed</b></td>
+                    <td>
+                        <io-toggle label="BELLYEXPOSED" class="control labelToggle">
+                            <button label="BELLYEXPOSED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton bellyc" type="button" id="BELLYCOVERED">
+                        </button>
+                    </td>
+                    <td><b>Belly Covered</b></td>
+                    <td>
+                        <io-toggle label="BELLYCOVERED" class="control labelToggle">
+                            <button label="BELLYCOVERED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton butte" type="button" id="BUTTOCKSEXPOSED">
+                        </button>
+                    </td>
+                    <td><b>Buttocks Exposed</b></td>
+                    <td>
+                        <io-toggle label="BUTTOCKSEXPOSED" class="control labelToggle">
+                            <button label="BUTTOCKSEXPOSED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton buttc" type="button" id="BUTTOCKSCOVERED">
+                        </button>
+                    </td>
+                    <td><b>Buttocks Covered</b></td>
+                    <td>
+                        <io-toggle label="BUTTOCKSCOVERED" class="control labelToggle">
+                            <button label="BUTTOCKSCOVERED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton anuse" type="button" id="ANUSEXPOSED">
+                        </button>
+                    </td>
+                    <td><b>Anus Exposed</b></td>
+                    <td>
+                        <io-toggle label="ANUSEXPOSED" class="control labelToggle">
+                            <button label="ANUSEXPOSED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton anusc" type="button" id="ANUSCOVERED">
+                        </button>
+                    </td>
+                    <td><b>Anus Covered</b></td>
+                    <td>
+                        <io-toggle label="ANUSCOVERED" class="control labelToggle">
+                            <button label="ANUSCOVERED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton fgene" type="button" id="FEMALEGENITALIAEXPOSED">
+                        </button>
+                    </td>
+                    <td><b>♀ Genitalia Exposed</b></td>
+                    <td>
+                        <io-toggle label="FEMALEGENITALIAEXPOSED" class="control labelToggle">
+                            <button label="FEMALEGENITALIAEXPOSED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton fgenc" type="button" id="FEMALEGENITALIACOVERED">
+                        </button>
+                    </td>
+                    <td><b>♀ Genitalia Covered</b></td>
+                    <td>
+                        <io-toggle label="FEMALEGENITALIACOVERED" class="control labelToggle">
+                            <button label="FEMALEGENITALIACOVERED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton mgene" type="button" id="MALEGENITALIAEXPOSED">
+                        </button>
+                    </td>
+                    <td><b>♂ Genitalia Exposed</b></td>
+                    <td>
+                        <io-toggle label="MALEGENITALIAEXPOSED" class="control labelToggle">
+                            <button label="MALEGENITALIAEXPOSED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton mgenc" type="button" id="MALEGENITALIACOVERED">
+                        </button>
+                    </td>
+                    <td><b>♂ Genitalia Covered</b></td>
+                    <td>
+                        <io-toggle label="MALEGENITALIACOVERED" class="control labelToggle">
+                            <button label="MALEGENITALIACOVERED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton feete" type="button" id="FEETEXPOSED">
+                        </button>
+                    </td>
+                    <td><b>Feet Exposed</b></td>
+                    <td>
+                        <io-toggle label="FEETEXPOSED" class="control labelToggle">
+                            <button label="FEETEXPOSED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="labelButton feetc" type="button" id="FEETCOVERED">
+                        </button>
+                    </td>
+                    <td><b>Feet Covered</b></td>
+                    <td>
+                        <io-toggle label="FEETCOVERED" class="control labelToggle">
+                            <button label="FEETCOVERED" class="checkbox labelToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <div id="content-filetypes" class="content">
+        <header>
+            <h1>File Types</h1>
+            <p>
+                <span>Select which file types are processed and how:</span>
+            </p>
+        </header>
+        <section>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th style="width: 160px;max-width: 160px;min-width: 160px;">Mime Type</th>
+                    <th colspan="2" style="width: 40%;">Enabled</th>
+                    <th style="width: 10%;">Advanced</th>
+                    <th style="width: 10%;"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <b>PNG</b>
+                    </td>
+                    <td colspan="2">
+                        <io-toggle label="png" class="control filetypeToggle">
+                            <button label="png" class="checkbox filetypeToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <button toggle="png_advanced">Options</button>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr class="png_advanced" style="display: none;border-bottom: none;">
+                    <td>
+                        <div>
+                            <div style="width:100px"><b>File size:</b></div>
+                        </div>
+                        <div>
+                            <div style="display:flex;">Min <div id="png_min_file_size_translated" class="file_size_translated" link="png_min"></div></div>
+                            <input type="number" id="png_min_file_size" class="file_max_min min_file save_config"  link="png_min" min="0" step="1" value="1000"> KB
+                        </div>
+                        <div>
+                            <div style="display:flex;">Max <div id="png_max_file_size_translated" class="file_size_translated" link="png_max"></div></div>
+                            <input type="number" id="png_max_file_size" class="file_max_min max_file save_config zero_look_disabled" link="png_max" min="0" step="1" value="0"> KB
+                        </div>
+                    </td>
+                    <td colspan="3">
+                        <div>
+                            <div><b>Image dimensions:</b></div>
+                        </div>
+                        <div>
+                            <div style="width:100px">Min Width</div><input type="number" id="png_min_width" class="save_config" min="0" step="1" value="20"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Max Width</div><input type="number" id="png_max_width" class="save_config zero_look_disabled" min="0" step="1" value="0"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Min Height</div><input type="number" id="png_min_height" class="save_config" min="0" step="1" value="20"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Max Height</div><input type="number" id="png_max_height" class="save_config zero_look_disabled" min="0" step="1" value="0"> px
+                        </div>
+                    </td>
+                </tr>
+                <tr class="png_advanced" style="display: none">
+                    <td>
+                        <b>Output file type:</b>
+                    </td>
+                    <td>
+                        <input id="png_file_output_png" class="save_config" name="png_file_output" type="radio" value="image/png" checked> PNG
+                    </td>
+                    <td>
+                        <input id="png_file_output_jpg" class="save_config" name="png_file_output" type="radio" value="image/jpeg"> JPG
+                    </td>
+                    <td>
+                        <input id="png_file_output_bmp" class="save_config" name="png_file_output" type="radio" value="image/bmp"> BMP
+                    </td>
+                    <td>
+                        <input id="png_file_output_webp" class="save_config" name="png_file_output" type="radio" value="image/webp"> WebP
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>JPG</b>
+                    </td>
+                    <td colspan="2">
+                        <io-toggle label="jpg" class="control filetypeToggle">
+                            <button label="jpg" class="checkbox filetypeToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <button toggle="jpg_advanced">Options</button>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr class="jpg_advanced" style="display: none;border-bottom: none;">
+                    <td>
+                        <div>
+                            <div style="width:100px"><b>File size:</b></div>
+                        </div>
+                        <div>
+                            <div style="display:flex;">Min <div id="jpg_min_file_size_translated" class="file_size_translated" link="jpg_min"></div></div>
+                            <input type="number" id="jpg_min_file_size" class="file_max_min min_file save_config"  link="jpg_min" min="0" step="1" value="1000"> KB
+                        </div>
+                        <div>
+                            <div style="display:flex;">Max <div id="jpg_max_file_size_translated" class="file_size_translated" link="jpg_max"></div></div>
+                            <input type="number" id="jpg_max_file_size" class="file_max_min max_file save_config zero_look_disabled" link="jpg_max" min="0" step="1" value="0"> KB
+                        </div>
+                    </td>
+                    <td colspan="3">
+                        <div>
+                            <div><b>Image dimensions:</b></div>
+                        </div>
+                        <div>
+                            <div style="width:100px">Min Width</div><input type="number" id="jpg_min_width" class="save_config" min="0" step="1" value="20"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Max Width</div><input type="number" id="jpg_max_width" class="save_config zero_look_disabled" min="0" step="1" value="0"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Min Height</div><input type="number" id="jpg_min_height" class="save_config" min="0" step="1" value="20"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Max Height</div><input type="number" id="jpg_max_height" class="save_config zero_look_disabled" min="0" step="1" value="0"> px
+                        </div>
+                    </td>
+                </tr>
+                <tr class="jpg_advanced" style="display: none">
+                    <td>
+                        <b>Output file type:</b>
+                    </td>
+                    <td>
+                        <input id="jpg_file_output_jpg" class="save_config" name="jpg_file_output" type="radio" value="image/jpeg" checked> JPG
+                    </td>
+                    <td>
+                        <input id="jpg_file_output_png" class="save_config" name="jpg_file_output" type="radio" value="image/png"> PNG
+                    </td>
+                    <td>
+                        <input id="jpg_file_output_bmp" class="save_config" name="jpg_file_output" type="radio" value="image/bmp"> BMP
+                    </td>
+                    <td>
+                        <input id="jpg_file_output_webp" class="save_config" name="jpg_file_output" type="radio" value="image/webp"> WebP
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>BMP</b>
+                    </td>
+                    <td colspan="2">
+                        <io-toggle label="bmp" class="control filetypeToggle">
+                            <button label="bmp" class="checkbox filetypeToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <button toggle="bmp_advanced">Options</button>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr class="bmp_advanced" style="display: none;border-bottom: none;">
+                    <td>
+                        <div>
+                            <div style="width:100px"><b>File size:</b></div>
+                        </div>
+                        <div>
+                            <div style="display:flex;">Min <div id="bmp_min_file_size_translated" class="file_size_translated" link="bmp_min"></div></div>
+                            <input type="number" id="bmp_min_file_size" class="file_max_min min_file save_config"  link="bmp_min" min="0" step="1" value="1000"> KB
+                        </div>
+                        <div>
+                            <div style="display:flex;">Max <div id="bmp_max_file_size_translated" class="file_size_translated" link="bmp_max"></div></div>
+                            <input type="number" id="bmp_max_file_size" class="file_max_min max_file save_config zero_look_disabled" link="bmp_max" min="0" step="1" value="0"> KB
+                        </div>
+                    </td>
+                    <td colspan="3">
+                        <div>
+                            <div><b>Image dimensions:</b></div>
+                        </div>
+                        <div>
+                            <div style="width:100px">Min Width</div><input type="number" id="bmp_min_width" class="save_config" min="0" step="1" value="20"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Max Width</div><input type="number" id="bmp_max_width" class="save_config zero_look_disabled" min="0" step="1" value="0"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Min Height</div><input type="number" id="bmp_min_height" class="save_config" min="0" step="1" value="20"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Max Height</div><input type="number" id="bmp_max_height" class="save_config zero_look_disabled" min="0" step="1" value="0"> px
+                        </div>
+                    </td>
+                </tr>
+                <tr class="bmp_advanced" style="display: none">
+                    <td>
+                        <b>Output file type:</b>
+                    </td>
+                    <td>
+                        <input id="bmp_file_output_bmp" class="save_config" name="bmp_file_output" type="radio" value="image/bmp" checked> BMP
+                    </td>
+                    <td>
+                        <input id="bmp_file_output_png" class="save_config" name="bmp_file_output" type="radio" value="image/png"> PNG
+                    </td>
+                    <td>
+                        <input id="bmp_file_output_jpg" class="save_config" name="bmp_file_output" type="radio" value="image/jpeg"> JPG
+                    </td>
+                    <td>
+                        <input id="bmp_file_output_webp" class="save_config" name="bmp_file_output" type="radio" value="image/webp"> WebP
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>WebP</b>
+                    </td>
+                    <td colspan="2">
+                        <io-toggle label="webp" class="control filetypeToggle">
+                            <button label="webp" class="checkbox filetypeToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <button toggle="webp_advanced">Options</button>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr id="webp_advanced" style="display: none;border-bottom: none;">
+                    <td>
+                        <div>
+                            <div style="width:100px"><b>File size:</b></div>
+                        </div>
+                        <div>
+                            <div style="display:flex;">Min <div id="webp_min_file_size_translated" class="file_size_translated" link="webp_min"></div></div>
+                            <input type="number" id="webp_min_file_size" class="file_max_min min_file save_config"  link="webp_min" min="0" step="1" value="1000"> KB
+                        </div>
+                        <div>
+                            <div style="display:flex;">Max <div id="webp_max_file_size_translated" class="file_size_translated" link="webp_max"></div></div>
+                            <input type="number" id="webp_max_file_size" class="file_max_min max_file save_config zero_look_disabled" link="webp_max" min="0" step="1" value="0"> KB
+                        </div>
+                    </td>
+                    <td colspan="3">
+                        <div>
+                            <div><b>Image dimensions:</b></div>
+                        </div>
+                        <div>
+                            <div style="width:100px">Min Width</div><input type="number" id="webp_min_width" class="save_config" min="0" step="1" value="20"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Max Width</div><input type="number" id="webp_max_width" class="save_config zero_look_disabled" min="0" step="1" value="0"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Min Height</div><input type="number" id="webp_min_height" class="save_config" min="0" step="1" value="20"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Max Height</div><input type="number" id="webp_max_height" class="save_config zero_look_disabled" min="0" step="1" value="0"> px
+                        </div>
+                    </td>
+                </tr>
+                <tr class="webp_advanced" style="display: none">
+                    <td>
+                        <b>Output file type:</b>
+                    </td>
+                    <td>
+                        <input id="webp_file_output_webp" class="save_config" name="webp_file_output" type="radio" value="image/webp" checked> WebP
+                    </td>
+                    <td>
+                        <input id="webp_file_output_png" class="save_config" name="webp_file_output" type="radio" value="image/png"> PNG
+                    </td>
+                    <td>
+                        <input id="webp_file_output_jpg" class="save_config" name="webp_file_output" type="radio" value="image/jpeg"> JPG
+                    </td>
+                    <td>
+                        <input id="webp_file_output_bmp" class="save_config" name="webp_file_output" type="radio" value="image/bmp"> BMP
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <b>AVIF</b>
+                    </td>
+                    <td colspan="2">
+                        <io-toggle label="avif" class="control filetypeToggle">
+                            <button label="avif" class="checkbox filetypeToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <button toggle="avif_advanced">Options</button>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr id="avif_advanced" style="display: none;border-bottom: none;">
+                    <td>
+                        <div>
+                            <div style="width:100px"><b>File size:</b></div>
+                        </div>
+                        <div>
+                            <div style="display:flex;">Min <div id="avif_min_file_size_translated" class="file_size_translated" link="avif_min"></div></div>
+                            <input type="number" id="avif_min_file_size" class="file_max_min min_file save_config"  link="avif_min" min="0" step="1" value="1000"> KB
+                        </div>
+                        <div>
+                            <div style="display:flex;">Max <div id="avif_max_file_size_translated" class="file_size_translated" link="avif_max"></div></div>
+                            <input type="number" id="avif_max_file_size" class="file_max_min max_file save_config zero_look_disabled" link="avif_max" min="0" step="1" value="0"> KB
+                        </div>
+                    </td>
+                    <td colspan="3">
+                        <div>
+                            <div><b>Image dimensions:</b></div>
+                        </div>
+                        <div>
+                            <div style="width:100px">Min Width</div><input type="number" id="avif_min_width" class="save_config" min="0" step="1" value="20"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Max Width</div><input type="number" id="avif_max_width" class="save_config zero_look_disabled" min="0" step="1" value="0"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Min Height</div><input type="number" id="avif_min_height" class="save_config" min="0" step="1" value="20"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Max Height</div><input type="number" id="avif_max_height" class="save_config zero_look_disabled" min="0" step="1" value="0"> px
+                        </div>
+                    </td>
+                </tr>
+                <tr class="avif_advanced" style="display: none">
+                    <td>
+                        <b>Output file type:</b>
+                    </td>
+                    <td>
+                        <input id="avif_file_output_webp" class="save_config" name="avif_file_output" type="radio" value="image/webp" checked> WebP
+                    </td>
+                    <td>
+                        <input id="avif_file_output_png" class="save_config" name="avif_file_output" type="radio" value="image/png"> PNG
+                    </td>
+                    <td>
+                        <input id="avif_file_output_jpg" class="save_config" name="avif_file_output" type="radio" value="image/jpeg"> JPG
+                    </td>
+                    <td>
+                        <input id="avif_file_output_bmp" class="save_config" name="avif_file_output" type="radio" value="image/bmp"> BMP
+                    </td>
+                </tr>
+
+                <tr>
+                    <td rowspan="2">
+                        <b class="patreon_gif patreon">GIF</b>
+                    </td>
+                    <td>
+                        <b>Thumbnail only</b>
+                    </td>
+                    <td>
+                        <b class="patreon patreon_gif patreon_nolock">Full Image</b>
+                    </td>
+                    <td rowspan="2">
+                        <button toggle="gif_advanced">Options</button>
+                    </td>
+                    <td rowspan="2">
+                        <a class='patreon_link' href="https://www.patreon.com/join/puryfi?">
+                            <img class='patreon_gif patreon_locked' style="width:100px;pointer-events: all" src="../images/patreon.png"/>
+                        </a>
+                    </td>
+                </tr>
+                <td>
+                    <io-toggle id="gif_thumb" class="gif_thumb control configToggle" style="width: 30px">
+                        <button id="gif_thumb_button" class="gif_thumb checkbox configToggle"></button>
+                    </io-toggle>
+                </td>
+                <td>
+                    <io-toggle id="gif-io" label="gif" class="patreon_gif patreon patreon_locked control filetypeToggle">
+                        <button id="gif-button" label="gif" class="patreon_gif patreon patreon_locked checkbox filetypeToggle"></button>
+                    </io-toggle>
+                </td>
+                <tr>
+                </tr>
+                <tr class="gif_advanced" style="display: none;">
+                    <td>
+                        <div>
+                            <div style="width:100px"><b>File size:</b></div>
+                        </div>
+                        <div>
+                            <div style="display:flex;">Min <div id="gif_min_file_size_translated" class="file_size_translated" link="gif_min"></div></div>
+                            <input type="number" id="gif_min_file_size" class="file_max_min min_file save_config"  link="gif_min" min="0" step="1" value="1000"> KB
+                        </div>
+                        <div>
+                            <div style="display:flex;">Max <div id="gif_max_file_size_translated" class="file_size_translated" link="gif_max"></div></div>
+                            <input type="number" id="gif_max_file_size" class="file_max_min max_file save_config zero_look_disabled" link="gif_max" min="0" step="1" value="0"> KB
+                        </div>
+                    </td>
+                    <td colspan="2" style="display: none">
+                        <div>
+                            <div><b>Image dimensions:</b></div>
+                        </div>
+                        <div>
+                            <div style="width:100px">Min Width</div><input type="number" id="gif_min_width" class="save_config" min="0" step="1" value="20"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Max Width</div><input type="number" id="gif_max_width" class="save_config zero_look_disabled" min="0" step="1" value="0"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Min Height</div><input type="number" id="gif_min_height" class="save_config" min="0" step="1" value="20"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Max Height</div><input type="number" id="gif_max_height" class="save_config zero_look_disabled" min="0" step="1" value="0"> px
+                        </div>
+                    </td>
+                    <td colspan="4">
+                        <div>
+                            <div><b>Frames:</b></div>
+                        </div>
+                        <div>
+                            <div style="width:100px">Max Frames</div><input type="number" id="gif_max_frame_count" class="save_config zero_look_disabled" min="0" step="1" value="0">
+                        </div>
+                        <div>
+                            <div>
+                                <b>Fall back to thumbnail:</b><input type="checkbox" id="gif_thumbnail_fallback" class="save_config">
+                                <div style="font-size: 80%;">Falls back to thumbnail if the GIF exceeds <b>max size</b> or <b>max frame count</b>.<br>
+                                GIF's smaller than the minimum allowed size are rendered normally.</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="gif_advanced" style="display: none">
+                    <td colspan="1">
+                        <div>
+                            <div style="width:100%">Frame processing:</div>
+                            <select name="gif_memory_mode" id="gif_memory_mode" class="patreon_gif patreon patreon_locked save_config" style="width: 160px;max-width: 100%;">
+                                <option value="0" style="color: black">Frame by Frame (slow)</option>
+                                <option value="1" style="color: black">Async (fast)</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td colspan="4">
+                        <div style="font-size: 80%;">
+                            <div style="color: #98001e;">Note:</div>
+                            <div> Async frame processing is ~ twice as fast but can cause crashes / freezes / problems if you are processing
+                                very large GIF's which exceed your GPU Memory capacity as the entire GIF is loaded into the memory before being processed.
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <br>
+        </section>
+    </div>
+    <div id="content-censoring" class="content">
+        <header>
+            <h1>Censoring</h1>
+            <p>
+                <span>Define how it's censored:</span>
+            </p>
+        </header>
+        <section>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th style="width: 33%;">Mode</th>
+                    <th style="width: 33%;">Enabled</th>
+                    <th style="width: 33%;">Advanced</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <button class="typeButton type0" type="button" id="normal"><b>Normal</b></button>
+                    </td>
+                    <td>
+                        <io-toggle label="normal" class="control censormodeToggle">
+                            <button label="normal" class="checkbox censormodeToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <button toggle="normal_advanced" class="customize" disabled>Customize</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="typeButton type1" type="button" id="blur"><b>Blur</b></button>
+                    </td>
+                    <td>
+                        <io-toggle label="blur" class="control censormodeToggle">
+                            <button label="blur" class="checkbox censormodeToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <button toggle="blur_advanced" class="customize">Customize</button>
+                    </td>
+                </tr>
+                <tr id="blur_advanced" style="display: none">
+                    <td>
+                        <div>
+                            <div style="width:100px">Shape:</div>
+                            <select id="blur_shape" class="save_config">
+                                <option value="0">&#9724; Rectangle</option>
+                                <option value="1">&#9679; Circle</option>
+                                <option value="2">&#9679; Ellipse</option>
+                                <option class="patreon patreon_locked patreon_shape_heart" value="3" disabled>&#10084; Heart</option>
+                            </select>
+                            <div style="width:100px">Scale:</div> <input type="number" id="blur_scale" min="0.1" class="save_config scale" max="5" step="0.1" value="1.0">
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <div>
+                                <div style="width:100px">Blur:</div><input type="number" id="blur_strength" class="save_config" min="2" max="500" step="1" value="50">px
+                            </div>
+                            <br>
+                            <div>
+                                <label for="blur_grayscale">Grayscale: </label><input type="checkbox" id="blur_grayscale" name="blur_grayscale" class="save_config">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <div style="width:100px">Feathering: </div><input type="number" id="blur_feathering" class="save_config" min="0" max="100" step="0.1" value="5">%
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="typeButton type2" type="button" id="pixel"><b>Pixel</b></button>
+                    </td>
+                    <td>
+                        <io-toggle label="pixel" class="control censormodeToggle">
+                            <button label="pixel" class="checkbox censormodeToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <button toggle="pixel_advanced" class="customize">Customize</button>
+                    </td>
+                </tr>
+                <tr class="pixel_advanced" style="display: none">
+                    <td colspan="1">
+                        <div>
+                            <div style="width:100px">Geometry:</div>
+                            <select id="pixel_geometry" class="save_config">
+                                <option value="0">Cubes</option>
+                                <option value="1">Hexagon</option>
+                                <option value="2">Geometry Glitch</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="pixel_advanced" style="display: none">
+                    <td colspan="1">
+                        <div style="width:100px">Shape:</div>
+                        <select id="pixel_shape" class="save_config">
+                            <option value="0">&#9724; Rectangle</option>
+                            <option value="1">&#9679; Circle</option>
+                            <option value="2">&#9679; Ellipse</option>
+                            <option class="patreon patreon_locked patreon_shape_heart" value="3" disabled>&#10084; Heart</option>
+                        </select>
+                        <div>
+                            <div style="width:100px">Scale:</div> <input type="number" id="pixel_scale" class="save_config scale" min="0.1" max="5" step="0.1" value="1.0">
+                        </div>
+                        <div>
+                            <div style="width:100px">Feathering: </div><input type="number" id="pixel_feathering" class="save_config" min="0" max="100" step="0.1" value="5">%
+                        </div>
+                    </td>
+                    <td colspan="1">
+                        <div>
+                            <div>
+                                <div style="width:100px">Distance:</div> <input type="number" id="pixel_distance" class="save_config" min="0" max="50" step="1" value="0">
+                            </div>
+                            <br>
+                            <div>
+                                <label for="pixel_grayscale">Grayscale: </label><input type="checkbox" id="pixel_grayscale" name="pixel_grayscale" class="save_config">
+                            </div>
+                        </div>
+                    </td>
+                    <td colspan="1">
+                        <div>
+                            <div style="width:100px">Dimensions:</div>
+                            <select name="pixel_size_mode" id="pixel_size_mode" class="save_config">
+                                <option value="0">Percentage</option>
+                                <option value="1">Fixed</option>
+                            </select>
+                            <br>
+                            <div style="width:100px">Pixel Size:</div>
+                            <div style="display: flex;">
+                                <input type="number" id="pixel_size" class="save_config" min="1" max="500" step="1" value="5"><div id="pixel_size_suffix">px</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="typeButton type3" type="button" id="black"><b>Black</b></button>
+                    </td>
+                    <td>
+                        <io-toggle label="black" class="control censormodeToggle">
+                            <button label="black" class="checkbox censormodeToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <button toggle="black_advanced" class="customize">Customize</button>
+                    </td>
+                </tr>
+                <tr id="black_advanced" style="display: none">
+                    <td colspan="1">
+                        <div style="width:100px">Shape:</div>
+                        <select id="bar_shape" class="save_config">
+                            <option value="0">&#9724; Rectangle</option>
+                            <option value="1">&#9679; Circle</option>
+                            <option value="2">&#9679; Ellipse</option>
+                            <option class="patreon patreon_locked patreon_shape_heart" value="3" disabled>&#10084; Heart</option>
+                        </select>
+                        <div>
+                            <div style="width:100px">Scale:</div> <input type="number" id="bar_scale" min="0.1" class="save_config scale" max="5" step="0.1" value="1.0">
+                        </div>
+                        <div>
+                            <div style="width:100px">Feathering: </div><input type="number" id="bar_feathering" class="save_config" min="0" max="100" step="0.1" value="5">%
+                        </div>
+                    </td>
+                    <td colspan="2">
+                        <div>
+                            <b style="top: -5px;position: relative;">Box Color:</b>
+                            <input type="color" id="bar_colorpicker" value="#00000" class="save_config">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="typeButton type4" type="button" id="triangle"><b style="margin-left: -5px;">Triangle</b></button>
+                    </td>
+                    <td>
+                        <io-toggle label="triangle" class="control censormodeToggle">
+                            <button label="triangle" class="checkbox censormodeToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <button toggle="triangle_advanced" class="customize">Customize</button>
+                    </td>
+                </tr>
+                <tr class="triangle_advanced" style="display: none">
+                    <td colspan="1">
+                        <div style="width:100px">Shape:</div>
+                        <select id="triangle_shape" class="save_config">
+                            <option value="0">&#9724; Rectangle</option>
+                            <option value="1">&#9679; Circle</option>
+                            <option value="2">&#9679; Ellipse</option>
+                            <option class="patreon patreon_locked patreon_shape_heart" value="3" disabled>&#10084; Heart</option>
+                        </select>
+                        <div>
+                            <div style="width:100px">Scale:</div> <input type="number" id="triangle_scale" min="0.1" class="save_config scale" max="5" step="0.1" value="1.0">
+                        </div>
+                        <div>
+                            <div style="width:100px">Feathering: </div><input type="number" id="triangle_feathering" class="save_config" min="0" max="100" step="0.1" value="5">%
+                        </div>
+                    </td>
+                    <td colspan="1">
+                        <div>
+                            Vertex Mode:<br>
+                            <input type="radio" id="triangle_vertex_mode_static" name="triangle_vertex_mode" class="triangle_vertex_mode save_config" value="static" checked>
+                            <label for="triangle_vertex_mode_static">Static</label><br>
+                            <input type="radio" id="triangle_vertex_mode_dynamic" name="triangle_vertex_mode" class="triangle_vertex_mode save_config" value="dynamic">
+                            <label for="triangle_vertex_mode_dynamic">Dynamic</label>
+                        </div>
+                        <div>
+                            <div class="triangle_vertex_count_static">
+                                <div style="width:100px">Points:</div><input type="number" id="triangle_vertex_count_static" class="save_config" min="1" max="50000" step="1" value="1000">
+                            </div>
+                            <div class="triangle_vertex_count_dynamic">
+                                <div style="width:100px">Points:</div><input type="number" id="triangle_vertex_count_dynamic" class="save_config" min="1" max="1000" step="1" value="20">%
+                            </div>
+                        </div>
+                    </td>
+                    <td colspan="1">
+                        <div>
+                            <div style="width:100px">Accuracy:</div> <input type="number" id="triangle_accuracy" min="0" class="save_config" max="1" step="0.1" value="0.7">
+                        </div>
+                        <div>
+                            <div style="width:100px">Blur:</div><input type="number" id="triangle_blur" class="save_config" min="0" max="500" step="1" value="0">px
+                        </div>
+                        <div>
+                            <div style="width:100px">Threshold:</div><input type="number" id="triangle_threshold" class="save_config" min="1" max="100" step="1" value="50">
+                        </div>
+                    </td>
+                </tr>
+                <tr class="triangle_advanced" style="display: none">
+                    <td colspan="1">
+                        <div>
+                            Fill:<br>
+                            <input type="radio" id="triangle_fill_off" name="triangle_fill" class="save_config" value="off">
+                            <label for="triangle_fill_off">Off</label><br>
+                            <input type="radio" id="triangle_fill_on" name="triangle_fill" class="save_config" value="on" checked>
+                            <label for="triangle_fill_on">On</label>
+                            <input type="radio" id="triangle_fill_color" name="triangle_fill" class="save_config" value="color">
+                            <label for="triangle_fill_color">Color</label>
+                            <div>
+                                Fill Color:
+                                <input type="color" id="triangle_fill_colorpicker" value="#00000" class="save_config">
+                            </div>
+                        </div>
+                    </td>
+                    <td colspan="1">
+                        <div>
+                            Stroke:<br>
+                            <input type="radio" id="triangle_stroke_off" name="triangle_stroke" class="save_config" value="off">
+                            <label for="triangle_stroke_off">Off</label><br>
+                            <input type="radio" id="triangle_stroke_on" name="triangle_stroke" class="save_config" value="on" checked>
+                            <label for="triangle_stroke_on">On</label>
+                            <input type="radio" id="triangle_stroke_color" name="triangle_stroke" class="save_config" value="color">
+                            <label for="triangle_stroke_color">Color</label>
+                            <div>
+                                Stroke Color:
+                                <input type="color" id="triangle_stroke_colorpicker" value="#00000" class="save_config">
+                            </div>
+                        </div>
+                        <div>
+                            <div style="width:100px">Stroke width:</div> <input type="number" id="triangle_stroke_width" min="0" class="save_config" max="10" step="0.1" value="0.5">
+                        </div>
+                    </td>
+                    <td colspan="1">
+                        <div>
+                            <label for="triangle_gradient">Gradients:</label>
+                            <input type="checkbox" id="triangle_gradient" name="triangle_gradient"  class="save_config" checked>
+                        </div>
+                        <div>
+                            <div style="width:100px">Gradient Stops:</div><input type="number" id="triangle_gradient_stops" class="save_config" min="2" max="100" step="1" value="4">
+                        </div>
+                        <div>
+                            Line Join:<br>
+                            <select id="triangle_line_join" class="save_config">
+                                <option value="miter">Miter</option>
+                                <option value="round">Round</option>
+                                <option value="bevel">Bevel</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="triangle_transparent_color">Transparent Color:</label>
+                            <input type="checkbox" id="triangle_transparent_color" name="triangle_transparent_color" class="save_config" checked>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="typeButton type5" type="button" id="box"><b>Box</b></button>
+                    </td>
+                    <td>
+                        <io-toggle label="box" class="control censormodeToggle">
+                            <button label="box" class="checkbox censormodeToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <button toggle="box_advanced" class="customize" disabled>Customize</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="typeButton type6" type="button" id="glitch"><b>Glitch</b></button>
+                    </td>
+                    <td>
+                        <io-toggle label="glitch" class="control censormodeToggle">
+                            <button label="glitch" class="checkbox censormodeToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <button toggle="glitch_advanced" class="customize">Customize</button>
+                    </td>
+                </tr>
+                <tr id="glitch_advanced" style="display: none">
+                    <td colspan="1">
+                        <div>
+                            <div style="width:100px">Type:</div>
+                            <select id="glitch_type" class="save_config" style="width: 100%;max-width: 150px;">
+                                <option value="0">Chromatic Aberration</option>
+                                <option value="1">Multiple Panels</option>
+                            </select>
+                        </div>
+                        <div>
+                            <div style="width:100px">Scale:</div> <input type="number" id="glitch_scale" min="0.1" class="save_config" max="5" step="0.1" value="1.0" style="max-width: 150px;">
+                        </div>
+                        <div class="glitch_multiple_panels">
+                            <div>Border: <input type="checkbox" id="glitch_multiple_panels_border" class="save_config"></div>
+                        </div>
+                    </td>
+                    <td colspan="1">
+                        <div class="glitch_chromatic_aberration" style="display:none">
+                            <div>
+                                <div style="width:100px">Color Intensity:</div> <input type="number" id="glitch_intensity_color" class="save_config" min="0" max="100" step="0.1" value="1.0">
+                            </div>
+                            <div>
+                                <div style="width:100px">Shift Intensity:</div> <input type="number" id="glitch_intensity_shift" class="save_config" min="0" max="100" step="0.1" value="1.0">
+                            </div>
+                            <div>
+                                <div style="width:100px">Horizontal Shift:</div> <input type="checkbox" id="glitch_horizontal_shift" class="save_config" checked>
+                            </div>
+                            <div>
+                                <div style="width:100px">Vertical Shift:</div> <input type="checkbox" id="glitch_vertical_shift" class="save_config" checked>
+                            </div>
+                        </div>
+                        <div class="glitch_multiple_panels">
+                            <div style="width:150px">Layers:</div> <input type="number" id="glitch_multiple_panels_layers" min="1" class="save_config" max="10" step="1" value="4">
+                            <div style="width:150px">Min Scale:</div> <input type="number" id="glitch_multiple_panels_min_scale" min="0.5" class="save_config" max="1" step="0.1" value="0.85">
+                            <div style="width:150px">Max Scale:</div> <input type="number" id="glitch_multiple_panels_max_scale" min="1" class="save_config" max="2" step="0.1" value="1.25">
+                            <div style="width:150px">Scatter:</div> <input type="number" id="glitch_multiple_panels_scatter" min="0" class="save_config" max="1" step="0.1" value="0.25">
+                            <div style="width:150px">Splitter Chance:</div> <input type="number" id="glitch_multiple_panels_splitter" min="0" class="save_config" max="1" step="0.1" value="0.2">
+                        </div>
+                    </td>
+                    <td colspan="1">
+                        <div class="glitch_multiple_panels" style="max-width: 180px;display: none;">
+                            <table class="glitch_multiple_panels_gradient_configuration">
+                                <thead>
+                                <tr style="background-color: initial;color: #009879;">
+                                    <td>Color</td>
+                                    <td>Position</td>
+                                </tr>
+                                Gradients:<br>
+                                </thead>
+                                <tbody id="testi">
+                                <tr>
+                                    <td>
+                                        <input class="glitch_multiple_panels_gradient_stop_color save_config" type="text" value="#0000007F" style="">
+                                    </td>
+                                    <td>
+                                        <input class="glitch_multiple_panels_gradient_stop_position save_config" type="text" value="0.0" style="width: 40px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input class="glitch_multiple_panels_gradient_stop_color save_config" type="text" value="" style=""></td>
+                                    <td>
+                                        <input class="glitch_multiple_panels_gradient_stop_position save_config" type="text" value="" style="width: 40px;"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input class="glitch_multiple_panels_gradient_stop_color save_config" type="text" value="" style="">
+                                    </td>
+                                    <td>
+                                        <input class="glitch_multiple_panels_gradient_stop_position save_config" type="text" value="" style="width: 40px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input class="glitch_multiple_panels_gradient_stop_color save_config" type="text" value="" style="">
+                                    </td>
+                                    <td>
+                                        <input class="glitch_multiple_panels_gradient_stop_position save_config" type="text" value="" style="width: 40px;">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div style="width: 200px;text-align: center;">
+                            Presets & Preview
+                            </div>
+                            <div style="width: 200px;display: flex;">
+                                <div style="width: 50px;position: relative">
+                                    <div id="glitch_multiple_panels_preset_previous">
+                                        <i class="fas fa-chevron-left" style="right:0px;cursor: pointer;margin: 0;position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);"></i>
+                                    </div>
+                                </div>
+                                <div style="margin: auto;width: 50px; background: repeating-conic-gradient(#808080 0% 25%, transparent 0% 50%) 50% / 20px 20px">
+                                    <div id="glitch_multiple_panels_preview" style="vertical-align: middle;display: table-cell;color: white;text-align: center;border: 1px #009879 solid;width: 50px; height: 50px; background: radial-gradient(circle at top left, #63A3FF5F 5%, #B6DCFFCF 20%, #B6DCFFCF 30%, #72BEFF5F 50%);">
+
+                                    </div>
+                                </div>
+                                <div style="width: 50px;position: relative">
+                                    <div id="glitch_multiple_panels_preset_next">
+                                        <i class="fas fa-chevron-right" style="cursor: pointer;margin: 0;position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="typeButton type7" type="button" id="sticker"><b>Sticker</b></button>
+                    </td>
+                    <td>
+                        <io-toggle label="sticker" class="control censormodeToggle">
+                            <button label="sticker" class="checkbox censormodeToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <button toggle="sticker_advanced" class="customize">Customize</button>
+                    </td>
+                </tr>
+                <tr id="sticker_advanced" style="display: none">
+                    <td colspan="1">
+                        <div>
+                            <div>
+                                <div style="width:100px">Scale:</div> <input type="number" id="sticker_scale" min="0.1" class="save_config" max="5" step="0.1" value="1.0">
+                            </div>
+                            <div>
+                                <div>
+                                    Drawing Stickers:
+                                </div>
+                                <select id="sticker_draw_mode" class="save_config" style="max-width: 108px;margin-bottom: 5px;">
+                                    <option value="0">Random</option>
+                                    <option value="1">By Collection</option>
+                                    <option value="2">By Group</option>
+                                </select>
+                                <div title="Forces the same sticker per label per image for better consistency.">
+                                Consistent stickers: <input type="checkbox" id="sticker_consistency" class="save_config" checked>
+                                </div>
+                                <input id="sticker_groups" class="save_config" type="text" placeholder="Group 1;Group 2;..." style="display: none">
+                                <div style="margin-top: 108px;">
+                                    <button id="sticker_reset" type="button">Reset Stickers</button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td colspan="1">
+                        <div style="max-width: 200px;">
+                            <h3 style="margin-bottom: 0px;margin-top: 0px;">Create Collection:</h3>
+                            <div style="display: flex;margin-bottom: 20px;margin-top: 0px;">
+                                <input id="sticker_collection_create_name" type="text" placeholder="Name goes here">
+                                <button id="sticker_collection_create_add" style="width: 100%;">Add</button>
+                            </div>
+                            <h3 style="margin-bottom: 0px;margin-top: 0px;">Sticker Collections:</h3>
+                            <select id="sticker_collections" name="sticker_collections" size="5" style="width: 100%;">
+
+                            </select>
+                            <button id="sticker_collection_disable" class="sticker_collection_button" style="margin-top: 2px;margin-bottom: 2px;" disabled>Disable</button>
+                            <br>
+                            <div style="display: flex;">
+                                <button id="sticker_collection_import" class="sticker_collection_button" style="margin-right: 1px;">Import</button>
+                                <input id="sticker_collection_import_file_input" type="file" style="display: none;" />
+                                <button id="sticker_collection_export" class="sticker_collection_button" style="margin-left: 1px;">Export</button>
+                            </div>
+                            <button id="sticker_collection_delete" class="sticker_collection_button" style="margin-top: 2px;display: none;">Delete</button>
+                        </div>
+                    </td>
+                    <td colspan="1">
+                        <div id="sticker_collection">
+
+                        </div>
+                        <div id="sticker_collection_add_sticker" style="display: none;">
+                            <i class="fas fa-plus" style="transform: translateY(2px);"></i><div style="transform: translateY(-1px);margin-left: 5px;">Add Sticker</div>
+                        </div>
+                        <input id="sticker_collection_add_sticker_file_input" type="file" style="display: none;" />
+                        <div id="sticker_collection_add_sticker_modal" class="modal">
+                            <div id="sticker_collection_add_sticker_modal_close">
+                                <i  class="fa fa-window-close" aria-hidden="true"></i>
+                            </div>
+                            <div class="modal-content">
+                                <div style='display: flex;'><div style='width: 60px;'>Name:</div> <input id="sticker_collection_add_name" type="text" placeholder="Name goes here"></div>
+                                <div style='display: flex;'><div style='width: 60px;'>Chance:</div> <input type="number" id="sticker_collection_add_chance" max="5" min="0" step="0.1" value="1"></div>
+                                <div style='display: flex;'><div style='width: 60px;'>Scale:</div> <input type="number" id="sticker_collection_add_scale" max="5" min="0.1" step="0.1" value="1"></div>
+                                <div style='display: flex;'><div style='width: 60px;'>Groups:</div> <input id="sticker_collection_add_group" type="text" placeholder="Group1;Group2;..."></div>
+                                <div style="position: absolute;right: 50px;top: 25px;">
+                                    <div>
+                                        <image id="sticker_collection_add_preview_image" class="sticker_entry_image" style="margin-bottom: 5px;"></image>
+                                    </div>
+                                    <button id="sticker_collection_add_select_file" style="width: 100px;">Select File</button>
+                                </div>
+                                <br>
+                                <div><b>Labels:</b>
+                                    <b id="sticker_add_toggle_labels">
+                                        <i class="fas fa-exchange-alt"></i>
+                                    </b>
+                                </div>
+                                <div style="display: grid;grid-template-columns: repeat(2, 200px);">
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Belly: </div><input type="checkbox" class="sticker_collection_add_label" label="BELLYEXPOSED" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Belly Covered: </div><input type="checkbox" class="sticker_collection_add_label" label="BELLYCOVERED" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Ass: </div><input type="checkbox" class="sticker_collection_add_label" label="BUTTOCKSEXPOSED" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Ass Covered: </div><input type="checkbox" class="sticker_collection_add_label" label="BUTTOCKSCOVERED" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Breast Female: </div><input type="checkbox" class="sticker_collection_add_label" label="FEMALEBREASTEXPOSED" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Breast Female Covered: </div><input type="checkbox" class="sticker_collection_add_label" label="FEMALEBREASTCOVERED" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Genitalia Female: </div><input type="checkbox" class="sticker_collection_add_label" label="FEMALEGENITALIAEXPOSED" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Genitalia Female Covered: </div><input type="checkbox" class="sticker_collection_add_label" label="FEMALEGENITALIACOVERED" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Genitalia Male: </div><input type="checkbox" class="sticker_collection_add_label" label="MALEGENITALIAEXPOSED" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Genitalia Male Covered: </div><input type="checkbox" class="sticker_collection_add_label" label="MALEGENITALIACOVERED" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Breast Male: </div><input type="checkbox" class="sticker_collection_add_label" label="MALEBREASTEXPOSED" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Breast Male Covered: </div><input type="checkbox" class="sticker_collection_add_label" label="MALEBREASTCOVERED" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Face Female: </div><input type="checkbox" class="sticker_collection_add_label" label="FACEFEMALE" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Face Male: </div><input type="checkbox" class="sticker_collection_add_label" label="FACEMALE" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Feet: </div><input type="checkbox" class="sticker_collection_add_label" label="FEETEXPOSED" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Feet Covered: </div><input type="checkbox" class="sticker_collection_add_label" label="FEETCOVERED" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Armpit: </div><input type="checkbox" class="sticker_collection_add_label" label="ARMPITSEXPOSED" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Armpit Covered: </div><input type="checkbox" class="sticker_collection_add_label" label="ARMPITSCOVERED" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Anus: </div><input type="checkbox" class="sticker_collection_add_label" label="ANUSEXPOSED" checked></div>
+                                    <div class="sticker_add_label_container"><div class="sticker_add_label">Anus Covered: </div><input type="checkbox" class="sticker_collection_add_label" label="ANUSCOVERED" checked></div>
+                                </div>
+                                <div style="position: absolute;bottom: 10px;">
+                                    <button id="sticker_collection_add_save" style="width: 100px;">Save</button>
+                                    <button id="sticker_collection_add_delete" style="width: 50px;display: none;">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <button class="typeButton type8" type="button" id="sobel"><b>Sobel</b></button>
+                    </td>
+                    <td>
+                        <io-toggle label="sobel" class="control censormodeToggle">
+                            <button label="sobel" class="checkbox censormodeToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <button toggle="sobel_advanced" class="customize">Customize</button>
+                    </td>
+                </tr>
+                <tr id="sobel_advanced" style="display: none">
+                    <td colspan="1">
+                        <div style="width:100px">Shape:</div>
+                        <select id="sobel_shape" class="save_config">
+                            <option value="0">&#9724; Rectangle</option>
+                            <option value="1">&#9679; Circle</option>
+                            <option value="2">&#9679; Ellipse</option>
+                            <option class="patreon patreon_locked patreon_shape_heart" value="3" disabled>&#10084; Heart</option>
+                        </select>
+                        <div>
+                            <div style="width:100px">Scale:</div> <input type="number" id="sobel_scale" min="0.1" class="save_config scale" max="5" step="0.1" value="1.0">
+                        </div>
+                        <div>
+                            <div style="width:100px">Feathering: </div><input type="number" id="sobel_feathering" class="save_config" min="0" max="100" step="0.1" value="5">%
+                        </div>
+                    </td>
+                    <td colspan="2">
+                        <div>
+                            <b>Background:</b><br>
+                            Inverted:
+                            <io-toggle label="sobel_color_inverted" class="control sobel_color_invertedToggle">
+                                <button label="sobel_color_inverted" class="checkbox sobel_color_invertedToggle"></button>
+                            </io-toggle>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="typeButton type9" type="button" id="splatter"><b>Splatter</b></button>
+                    </td>
+                    <td>
+                        <io-toggle label="splatter" class="control censormodeToggle">
+                            <button label="splatter" class="checkbox censormodeToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <button toggle="splatter_advanced" class="customize">Customize</button>
+                    </td>
+                </tr>
+                <tr id="splatter_advanced" style="display: none">
+                    <td colspan="1">
+                        <div>
+                            <div style="width:100px">Scale:</div> <input type="number" id="splatter_scale" min="0.1" class="save_config scale" max="5" step="0.1" value="1.0">
+                        </div>
+                    </td>
+                    <td colspan="1">
+                        <div>
+                            <div style="width:100px">Transparency:</div> <input type="number" id="splatter_transparency" min="0" class="save_config" max="1" step="0.1" value="1">
+                        </div>
+                        <br>
+                        <div>
+                            <div style="width:100px">Centering:</div> <input type="number" id="splatter_centering" min="0" class="save_config" max="12" step="1" value="1">
+                        </div>
+                        <br>
+                        <select id="splatter_color_preset" style="width: 180px;">
+                            <option value="">Custom</option>
+                            <option value="rgba(0,0,0,1)">Black</option>
+                            <option value="rgba(255,255,255,1)">White</option>
+                            <option value="rgba(0,0,0,1);rgba(255,255,255,1)">Black & White</option>
+                            <option value="rgb(0, 0, 0);rgb(255, 185, 0)">Wasp</option>
+                            <option value="rgb(60,59,110);rgb(255,255,255);rgb(178,34,52)">Stars and Stripes</option>
+                            <option value="rgb(129,13,207);rgb(239,43,189);rgb(251,171,84);rgb(242,216,67);rgb(27,196,68);rgb(15,150,207)">Rainbow</option>
+                        </select>
+                        <br>
+                        <textarea id="splatter_color_scheme" class="save_config" style="width: 100%;max-width: 172px;"></textarea>
+                    </td>
+                    <td colspan="1">
+                        <div>
+                            <div style="width:100px">Splatter size:</div> <input type="number" id="splatter_size" min="0.001" class="save_config" max="10" step="0.1" value="1.0">
+                        </div>
+                        <div>
+                            <div style="width:100px">Amount:</div> <input type="number" id="splatter_amount" min="1" class="save_config" max="100" step="1" value="1">
+                        </div>
+                        <div>
+                            <div style="width:100px">Sub size:</div> <input type="number" id="splatter_sub_size" min="0.001" class="save_config" max="10" step="0.1" value="1.0">
+                        </div>
+                        <div>
+                            <div style="width:100px">Sub amount:</div> <input type="number" id="splatter_sub_amount" min="0" class="save_config" max="100" step="1" value="1">
+                        </div>
+                        <div>
+                            <div style="width:100px">Iterations:</div> <input type="number" id="splatter_iterations" min="0" class="save_config" max="4" step="1" value="1">
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th colspan="3">Clustering</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="border-bottom: none;">
+                    <td style="width:33%">
+                        Cluster Overlapping Boxes
+                    </td>
+                    <td style="width: 33%">
+                        <io-toggle id="clustering-io" label="clustering" class="clustering control clusteringToggle">
+                            <button id="clustering-button" label="clustering" class="clustering checkbox clusteringToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td colspan="1">
+                        <select  name="clustering_mode" id="clustering_mode" class="save_config" style="max-width: 100%;">
+                            <option value="0">All</option>
+                            <option value="1">Matching Types</option>
+                        </select>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th colspan="3">Reverse Censoring <i class="far fa-question-circle" style="float:right;transform: translatey(1px);" tooltip="reverse-mode"></i></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="border-bottom: none;">
+                    <td class="patreon patreon_reverse_censoring patreon_nolock" style="width: 33%">
+                        Reverse Censoring Mode
+                    </td>
+                    <td style="width: 33%">
+                        <io-toggle id="reverse_censoring-io" label="reverse_censoring" class="reverse_censoring patreon_reverse_censoring patreon patreon_locked control reverseToggle">
+                            <button id="reverse_censoring-button" label="reverse_censoring" class="reverse_censoring patreon_reverse_censoring patreon patreon_locked checkbox reverseToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td rowspan="1" style="width: 33%">
+                        <a class='patreon_link' href="https://www.patreon.com/join/puryfi?">
+                            <img class='patreon_reverse_censoring patreon_locked' style="width:100px;pointer-events: all" src="../images/patreon.png" title="Unlocked at Tier 2"/>
+                        </a>
+                    </td>
+                </tr>
+                <tr style="border-bottom: none;">
+                    <td style="width: 33%" colspan="3">
+                        <div id="reverse_censoring_process_no_results_image_definition" style="margin-top: 5px;">
+                            <div class="patreon_reverse_censoring patreon patreon_locked">Empty Images:</div><br>
+                            <input type="radio" id="reverse_censoring_process_no_results_current_selection" name="reverse_censoring_process_no_results_image_definition"
+                                   class="patreon_reverse_censoring patreon patreon_locked">
+                            <label for="reverse_censoring_process_no_results_current_selection" class="patreon_reverse_censoring patreon patreon_locked">Do not contain any actively censored body part</label>
+                            <br>
+                            <input type="radio" id="reverse_censoring_process_no_results_global_selection" name="reverse_censoring_process_no_results_image_definition"
+                                   class="patreon_reverse_censoring patreon patreon_locked">
+                            <label for="reverse_censoring_process_no_results_global_selection" class="patreon_reverse_censoring patreon patreon_locked">Do not contain any body part</label>
+                            <br>
+                            <input type="radio" id="reverse_censoring_process_results_global_selection" name="reverse_censoring_process_no_results_image_definition"
+                                   class="patreon_reverse_censoring patreon patreon_locked" checked>
+                            <label for="reverse_censoring_process_results_global_selection" class="patreon_reverse_censoring patreon patreon_locked" checked>Must contain only not actively censored body parts or no body parts at all.</label>
+                        </div>
+                        <input type="checkbox" id="reverse_censoring_process_no_results" name="reverse_censoring_process_no_results"
+                                   class="patreon_reverse_censoring patreon patreon_locked">
+                        <label for="reverse_censoring_process_no_results" class="patreon_reverse_censoring patreon patreon_locked">Process empty images</label>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th colspan="3">Word Wall<i class="far fa-question-circle" style="float: right;transform: translatey(1px);" tooltip="word-wall"></i></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="border-bottom: none;">
+                    <td style="width: 33%">
+                        Word Wall
+                    </td>
+                    <td style="width: 33%">
+                        <io-toggle id="word_wall-io" label="word_wall" class="word_wall control word_wallToggle">
+                            <button id="word_wall-button" label="word_wall" class="word_wall checkbox word_wallToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td rowspan="1" style="width: 33%">
+
+                    </td>
+                </tr>
+                <tr style="border-bottom: none;">
+                    <td style="width: 33%" colspan="2">
+                        <div>Word pool: </div>
+                        <textarea id="word_wall_words" rows="4" cols="50">pury.fi</textarea>
+                        <div style="font-size: 80%;">
+                            Words / text is drawn seperated by line
+                        </div>
+                        <br>
+                        <div>
+                            Word selection:<br>
+                            <div style="width: 110px;display: inline-block;">
+                                <label for="word_wall_text_mode_random" style="display: inline-flex;">Random:</label>
+                                <input type="radio" id="word_wall_text_mode_random" class="save_config" name="word_wall_text_mode" value="0">
+                            </div>
+                            <div style="width: 160px;display: inline-block;">
+                                <label for="word_wall_text_mode_random_combine" style="display: inline-flex;">Random Combine:</label>
+                                <input type="radio" id="word_wall_text_mode_random_combine" class="save_config" name="word_wall_text_mode" value="1">
+                            </div>
+                            <div style="width: 110px;display: inline-block;">
+                                <label for="word_wall_text_mode_combine" style="display: inline-flex;">Combine:</label>
+                                <input type="radio" id="word_wall_text_mode_combine" class="save_config" name="word_wall_text_mode" value="2">
+                            </div>
+                            <i class="far fa-question-circle" style="float: right;transform: translatey(1px);" tooltip="word-selection"></i>
+                        </div>
+                    </td>
+                    <td rowspan="1" style="width: 33%">
+                        <div style="width:150px">Font size</div><input type="number" id="word_wall_font_size" class="save_config" min="1" max="5" step="0.1" value="1"> %
+                        <div style="width:150px">Horizontal distance</div><input type="number" id="word_wall_distance_horizontal" class="save_config" min="0" max="40" step="1" value="4"> characters
+                        <div style="width:150px">Vertical distance</div><input type="number" id="word_wall_distance_vertical" class="save_config" min="0" max="5" step="0.1" value="1"> %
+                        <div style="width:150px">Offset</div><input type="number" id="word_wall_offset" class="save_config" min="0" max="10" step="0.1" value="4"> %
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <div id="content-advanced" class="content">
+        <header>
+            <h1>Advanced</h1>
+            <p>
+                <span>Advanced and experimental settings:</span>
+            </p>
+        </header>
+        <section>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th colspan="3">Advanced settings</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        Pre-Scaling
+                    </td>
+                    <td>
+                        <io-toggle id="prescale-io" label="prescale" class="prescale control prescalingToggle">
+                            <button id="prescale-button" label="prescale" class="prescale checkbox prescalingToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <div>
+                            If active all images are down-scaled a second time when being processed.<br>
+                            Tests have shown similar results while providing a minor speed up<br>
+                            but also sparing a lot of <b>memory</b> when bulk processing many large images.<br>
+                            <div style="color: #98001e;">Note:</div>
+                            We highly recommend enabling this option when experiencing huge memory usage within the batch-converter or video overlay.
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Base64 Support
+                    </td>
+                    <td>
+                        <io-toggle id="base64-io" label="base64_support" class="base64_support control base64Toggle">
+                            <button id="base64-button" label="base64_support" class="base64_support checkbox base64Toggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <div>
+                            Base64 encoded images are not covered by the Firefox extension API.<br>
+                            This options solves the issue by scanning webpages for Base64 encoded images and censors them retroactively.
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th colspan="3">Extension Icon</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="text-align: center;">
+                        <b>Classic</b>
+                    </td>
+                    <td style="text-align: center;">
+                        <b>Modern</b>
+                    </td>
+                    <td style="text-align: center;">
+                        <b>Minimalistic</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        <button class="iconButton icon-classic" type="button" value="classic">
+                        </button>
+                    </td>
+                    <td style="text-align: center;">
+                        <button class="iconButton icon-eye" type="button" value="eye">
+                        </button>
+                    </td>
+                    <td style="text-align: center;">
+                        <button class="iconButton icon-minimalistic" type="button" value="minimalistic">
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th>Quick Settings</th>
+                    <th colspan="3" id="settings-info-box" style="text-align: right;font-size: 80%;"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <b>Load Quick Setting:</b>
+                    </td>
+                    <td>
+                        <select id="settings-select" style="min-width: 100%;">
+                        </select>
+                    </td>
+                    <td>
+                        <button id="settings-load" type="button">Load</button>
+                    </td>
+                    <td>
+                        <button id="settings-delete" type="button">Delete</button>
+                    </td>
+                </tr>
+                <tr style="border-bottom: none;">
+                    <td>
+                        <b>New Quick Setting:</b>
+                    </td>
+                    <td>
+                        <input id="settings-name" type="text" name="user" placeholder="My favorite Settings" maxlength="20" style="min-width: 97%;">
+                    </td>
+                    <td colspan="2">
+                        <button id="settings-save" type="button">Save</button>
+                    </td>
+                </tr>
+                <tr style="border-bottom: none;">
+                    <td colspan="3">
+                        <ul id="settings-advanced">
+
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div style="color: #98001e;">Note:</div>
+                        Sticker pool and single sticker related settings are not affected.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <div id="content-whitelist" class="content">
+        <header>
+            <h1>Whitelist & Blacklist</h1>
+            <p>
+                <span>Whitelist or Blacklist certain web pages.</span><br>
+            </p>
+        </header>
+        <section>
+            <div id="wblist-container">
+                <label for="radio-nolist" style="width: 80px;display: inline-flex;">None</label><input type="radio" id="radio-nolist" toggle="wblist-field-container" class="save_config wblist" name="wblist" value="0"><br>
+                <label for="radio-whitelist" style="width: 80px;display: inline-flex;">Whitelist</label><input type="radio" id="radio-whitelist" toggle="whitelist-container"  class="save_config wblist" name="wblist" value="1"><br>
+                <label for="radio-blacklist" style="width: 80px;display: inline-flex;">Blacklist</label><input type="radio" id="radio-blacklist" toggle="blacklist-container" class="save_config wblist" name="wblist" value="2"><br>
+                <div id="wblist-field-container">
+                    <table id="whitelist-container" class="option-table" style="display:none">
+                        <thead>
+                            <tr>
+                                <th colspan="3">Whitelist</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="1">
+                                    Disables the extension on pages listed here:
+                                    <div>
+                                        <textarea id="whitelist" style="max-width:100%;width:100%;height:300px" class="save_config" placeholder="e.g. https://pury.fi/*"></textarea>
+                                    </div>
+                                    Enter regular expressions, each line will be handled as a new rule.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table id="blacklist-container" class="option-table" style="display:none">
+                        <thead>
+                        <tr>
+                            <th colspan="3">Blacklist</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="1">
+                                Enables the extension on pages listed here and disables it on all other pages:
+                                <div>
+                                    <textarea id="blacklist" style="max-width:100%;width:100%;height:300px" class="save_config" placeholder="e.g. https://pury.fi/*"></textarea>
+                                </div>
+                                Enter regular expressions, each line will be handled as a new rule.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="wblist-locked-container" style="display: none;">
+                <div>Enables the extension on pages listed here and disables it on all other pages:
+                    <br><br>
+                    Add pages to Blacklist:
+                </div>
+                <textarea id="blacklist_locked" style="width: 99%;" disabled></textarea>
+                <div style="display: flex;">
+                    <input style="width: 100%;" type="text" id="blacklist-locked-input" placeholder="e.g. https://pury.fi/*">
+                    <button style="width: 60px;" type="button" id="blacklist-locked-add">&#187; Add </button>
+                </div>
+                <div style="font-size: 80%;color: #777;">Enter regular expressions, each line will be handled as a new rule.<br>
+                    Attention: Your extension is locked! You may still blacklist websites but cannot remove them while locked.</div>
+            </div>
+        </section>
+    </div>
+    <div id="content-help" class="content">
+        <header>
+            <h1>Help</h1>
+            <p>
+                <span>Find us at: </span>
+            </p>
+        </header>
+        <a href="https://discord.gg/9aBBJNEJGC" target="_blank" style="margin-left: 30px;width: 100px">
+            <img id="discord" src="../images/discord.svg"/>
+        </a>
+        <br>
+        <section>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th style="width: 230px">Cache</th>
+                    <th></th>
+                    <th style="text-align: right">
+                        <div id="refresh-cache">
+                            <i  class="fas fam fa-sync-alt"></i>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        Cached Images
+                    </td>
+                    <td>
+                        <div id="cached-count"></div>
+                    </td>
+                    <td>
+                        <io-toggle label="do_cache" check="true" class="control do_cacheToggle">
+                            <button label="do_cache" check="true" class="checkbox do_cacheToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Memory Size
+                    </td>
+                    <td>
+                        <div id="cached-size"></div>
+                    </td>
+                    <td>
+                        <button id="clear-cache">Clear Cache</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Storage Synced
+                    </td>
+                    <td>
+                        <div id="storage-synced-size"></div>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Storage Local
+                    </td>
+                    <td>
+                        <div id="storage-local-size"></div>
+                    </td>
+                    <td>
+                        <div id="storage-local-sticker-size"></div>
+                        <div id="storage-local-oom-size"></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th style="width: 230px">AI</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        Backend
+                    </td>
+                    <td>
+                        <div id="ts-backend"></div>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Tensors
+                    </td>
+                    <td>
+                        <div id="ts-tensors"></div>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Bytes
+                    </td>
+                    <td>
+                        <div id="ts-numBytes"></div>
+                    </td>
+                    <td>
+                        <div id="ts-numBytesInGPU"></div> GPU
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        DataBuffers
+                    </td>
+                    <td>
+                        <div id="ts-numDataBuffers"></div>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Stable
+                    </td>
+                    <td>
+                        <div id="ts-unreliable"></div>
+                    </td>
+                    <td>
+                        <div id="ts-reasons"></div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th style="width: 230px">Debugging</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <button class="imageButton debugButton" type="button" id="debug"><b>Debug</b></button>
+                    </td>
+                    <td>
+                        <io-toggle label="debug" class="control debugToggle">
+                            <button label="debug" class="checkbox debugToggle"></button>
+                        </io-toggle>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table id="restore-default" class="option-table">
+                <thead>
+                <tr>
+                    <th style="width: 230px">Restore Default Settings</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <button id="restore_default_settings-button" type="button">Reset</button>
+                        <div>
+                            <br>
+                            <div style="color: #98001e;">Note:</div>
+                            Will not delete or change your sticker data.
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <div id="content-video" class="content">
+        <header>
+            <h1>Video</h1>
+            <p>
+                <span>Video censoring options:</span>
+            </p>
+        </header>
+        <section>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th colspan="3">Overlay</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="patreon patreon_video_overlay patreon_nolock">
+                        Automatically Overlay Videos
+                    </td>
+                    <td>
+                        <io-toggle id="video-overlay-io" label="video_overlay" class="patreon_video_overlay patreon patreon_locked video_overlay control overlayToggle">
+                            <button id="video-overlay-button" label="video_overlay" class="patreon_video_overlay patreon patreon_locked video_overlay checkbox overlayToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td>
+                        <div>Creates a censored overlay over video elements.<br>
+                            As video frames are censored in realtime, resulting video quality will lose FPS depending on your computers performance.<br>
+                            Does not censor the video directly.<br>
+                            <div style="color: #98001e"><b>Recommended:</b></div>
+                            Use the context menu to create overlays on demand instead of automatically spawning overlays where they are not needed!
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <!-- Extras -->
+    <div id="content-oom" class="content">
+        <header>
+            <h1>Only Once Mode</h1>
+            <p>
+                <span>Display images only once:</span>
+            </p>
+        </header>
+        <section>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th colspan="3">Only Once Mode<i class="far fa-question-circle" style="float:right;transform: translatey(1px);" tooltip="oom-mode"></i></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="border-bottom: none;">
+                    <td style="width:33%" class="patreon patreon_only_once_mode patreon_nolock">
+                        Only Once Mode
+                    </td>
+                    <td style="width: 33%">
+                        <io-toggle id="oom-io" label="oom" class="control patreon_only_once_mode patreon patreon_locked oomToggle">
+                            <button id="oom-button" label="oom" class="checkbox patreon_only_once_mode patreon patreon_locked oomToggle"></button>
+                        </io-toggle>
+                    </td>
+                    <td style="width: 33%">
+                        <a class='patreon_link' href="https://www.patreon.com/join/puryfi?">
+                            <img class='patreon_only_once_mode patreon_locked' style="width:100px;pointer-events: all" src="../images/patreon.png"/>
+                        </a>
+                    </td>
+                </tr>
+                <tr style="border-bottom: none;">
+                    <td colspan="1" style="width:33%" class="patreon patreon_reverse_censoring patreon_nolock">
+                        Precision:
+                    </td>
+                    <td colspan="1" style="width:33%">
+                        <div class="range patreon_only_once_mode patreon patreon_locked" style="--step:1; --min:58; --max:64">
+                            <input id="only_once_mode_precision" class="slider patreon_only_once_mode patreon patreon_locked save_config" type="range" min="58" max="64" step="1" style="max-width: initial;" value="62" />
+                        </div>
+                    </td>
+                    <td colspan="1" style="width:33%">
+                        <!--
+                        <button id="only_once_mode_customize" toggle="only_once_mode_advanced" class="customize patreon_only_once_mode patreon patreon_locked" disabled>Customize</button>
+                        -->
+                    </td>
+                </tr>
+                <tr style="border-bottom: none;">
+                    <td colspan="3" class="patreon patreon_reverse_censoring patreon_nolock">
+                        Mode:
+                        <div style="margin-top: 10px;">
+                            <div class="oomGridEntry">
+                                <img class="ommMode" src="../images/oom/oomfull.png"/>
+                                Full Block
+                                <input type="radio" id="only_once_mode_mode_full"  class="oomModeRadio patreon_only_once_mode patreon patreon_locked save_config" name="oomModeRadio"  hide="only_once_mode_mode_advanced_hide" value="0" checked>
+                            </div>
+                            <div class="oomGridEntry">
+                                <img class="ommMode" src="../images/oom/oomtransparency.png"/>
+                                See Through
+                                <input type="radio" id="only_once_mode_mode_transparency"  class="oomModeRadio patreon_only_once_mode patreon patreon_locked save_config" name="oomModeRadio" toggle="only_once_mode_mode_see_trough_advanced" hide="only_once_mode_mode_advanced_hide" value="1">
+                                <div style="display: none;" class="vl"></div>
+                            </div>
+                            <div class="oomGridEntry">
+                                <img class="ommMode" src="../images/oom/oomborder.png"/>
+                                Borderless
+                                <input type="radio" id="only_once_mode_mode_border"  class="oomModeRadio patreon_only_once_mode patreon patreon_locked save_config" name="oomModeRadio" toggle="only_once_mode_mode_border_advanced" hide="only_once_mode_mode_advanced_hide" value="2">
+                                <div style="display: none;" class="vl"></div>
+                            </div>
+                            <div class="oomGridEntry">
+                                <img class="ommMode" src="../images/oom/oomthumbnail.png"/>
+                                Thumbnail
+                                <input type="radio" id="only_once_mode_mode_thumbnail"  class="oomModeRadio patreon_only_once_mode patreon patreon_locked save_config" name="oomModeRadio" toggle="only_once_mode_mode_thumbnail_advanced" hide="only_once_mode_mode_advanced_hide" value="3">
+                                <div style="display: none;" class="vl"></div>
+                            </div>
+                            <div class="oomGridEntry">
+                                <img class="ommMode" src="../images/oom/oomgrid.png"/>
+                                Grid
+                                <input type="radio" id="only_once_mode_mode_blur"  class="oomModeRadio patreon_only_once_mode patreon patreon_locked save_config" name="oomModeRadio" toggle="only_once_mode_mode_grid_advanced" hide="only_once_mode_mode_advanced_hide" value="4">
+                                <div style="display: none;" class="vl"></div>
+                            </div>
+                            <div class="oomGridEntry">
+                                <img class="ommMode" src="../images/oom/oomblur.png"/>
+                                Strong Blur
+                                <input type="radio" id="only_once_mode_mode_grid"  class="oomModeRadio patreon_only_once_mode patreon patreon_locked save_config" name="oomModeRadio" toggle="only_once_mode_mode_blur_advanced" hide="only_once_mode_mode_advanced_hide" value="5">
+                                <div style="display: none;" class="vl"></div>
+                            </div>
+                            <div class="oomGridEntry">
+                                <img class="ommMode" src="../images/oom/boxtease.png"/>
+                                Box Tease
+                                <input type="radio" id="only_once_mode_mode_box_tease"  class="oomModeRadio patreon_only_once_mode patreon patreon_locked save_config" name="oomModeRadio" toggle="only_once_mode_mode_box_tease_advanced" hide="only_once_mode_mode_advanced_hide" value="6">
+                                <div style="display: none;" class="vl"></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="only_once_mode_mode_advanced" style="border-bottom: 1px solid rgb(221, 221, 221);height: 10px;">
+                    <td colspan="3" class="patreon patreon_reverse_censoring patreon_nolock">
+                        <div id="only_once_mode_mode_see_trough_advanced" class="only_once_mode_mode_advanced_hide" style="height: 50px;display: none;">
+                            Transparency
+                            <div class="range patreon_only_once_mode patreon patreon_locked" style="--step:1; --min:1; --max:8; margin-left: 10px;margin-right: 10px;">
+                                <input id="only_once_mode_mode_see_trough_advanced_transparency" class="slider patreon_only_once_mode patreon patreon_locked save_config" type="range" min="1" max="8" step="1" style="max-width: initial;" value="0" />
+                            </div> %
+                        </div>
+                        <div id="only_once_mode_mode_border_advanced" class="only_once_mode_mode_advanced_hide" style="height: 50px;display: none;">
+                            <div style="float: left;">
+                                Distance<br>
+                                <div class="range patreon_only_once_mode patreon patreon_locked" style="--step:1; --min:1; --max:20; margin-left: 10px;margin-right: 10px;">
+                                    <input id="only_once_mode_mode_border_advanced_distance" class="slider patreon_only_once_mode patreon patreon_locked save_config" type="range" min="1" max="20" step="1" style="max-width: initial;" value="0" />
+                                </div>
+                            </div>
+                            <div style="float: right;">
+                                Border Radius<br>
+                                <div id="only_once_mode_mode_border_advanced_radius_range" class="range patreon_only_once_mode patreon patreon_locked" style="--step:1; --min:1; --max:300; margin-left: 10px;margin-right: 10px;">
+                                    <input id="only_once_mode_mode_border_advanced_radius" class="slider patreon_only_once_mode patreon patreon_locked save_config" type="range" min="1" max="300" step="1" style="max-width: initial;" value="0" />
+                                </div>
+                            </div>
+                        </div>
+                        <div id="only_once_mode_mode_thumbnail_advanced" class="only_once_mode_mode_advanced_hide" style="height: 50px;display: none;">
+                            Blur Thumbnail
+                            <div class="range patreon_only_once_mode patreon patreon_locked" style="--step:1; --min:0; --max:10; margin-left: 10px;margin-right: 10px;">
+                                <input id="only_once_mode_mode_thumbnail_advanced_blur" class="slider patreon_only_once_mode patreon patreon_locked save_config" type="range" min="0" max="10" step="1" style="max-width: initial;" value="0" />
+                            </div>
+                        </div>
+                        <div id="only_once_mode_mode_grid_advanced" class="only_once_mode_mode_advanced_hide" style="height: 50px;display: none;">
+                            <div style="float: left;">
+                                Grid
+                                <div class="range patreon_only_once_mode patreon patreon_locked" style="--step:1; --min:0; --max:10; margin-left: 10px;margin-right: 10px;">
+                                    <input id="only_once_mode_mode_grid_advanced_strength" class="slider patreon_only_once_mode patreon patreon_locked save_config" type="range" min="0.1" max="1" step="0.01" style="max-width: initial;" value="0" />
+                                </div>
+                            </div>
+                            <div style="float: right;">
+                                <select id="only_once_mode_mode_grid_advanced_color_preset" style="width: 180px;">
+                                    <option value="" selected>Custom</option>
+                                    <option value="rgba(0,0,0,1);rgba(255,255,255,1)">Black & White</option>
+                                    <option value="rgba(0,0,0,1);rgba(255, 185, 0, 0.55)">Wasp</option>
+                                    <option value="rgba(54,29,111,1);rgba(255,255,255,0.55)">Purple</option>
+                                </select>
+                                <div id="only_once_mode_mode_grid_advanced_color_custom">
+                                    Color 1 <input type="text" id="only_once_mode_mode_grid_advanced_color_1" class="save_config" placeholder="rgba(0,0,0,1)" style="width: 100%;max-width: initial;">
+                                    <br>
+                                    Color 2 <input type="text" id="only_once_mode_mode_grid_advanced_color_2" class="save_config" placeholder="rgba(255,255,255,1)" style="width: 100%;max-width: initial;">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="only_once_mode_mode_blur_advanced" class="only_once_mode_mode_advanced_hide" style="height: 50px;display: none;">
+                            Blur
+                            <div class="range patreon_only_once_mode patreon patreon_locked" style="--step:1; --min:1; --max:20; margin-left: 10px;margin-right: 10px;">
+                                <input id="only_once_mode_mode_blur_advanced_blur" class="slider patreon_only_once_mode patreon patreon_locked save_config" type="range" min="1" max="20" step="1" style="max-width: initial;" value="0" />
+                            </div>
+                        </div>
+                        <div id="only_once_mode_mode_box_tease_advanced" class="only_once_mode_mode_advanced_hide" style="height: 50px;display: none;">
+                            <input type="checkbox" id="only_once_mode_mode_box_tease_advanced_allow_faces" class="save_config"> Allow faces
+                        </div>
+                    </td>
+                </tr>
+                <tr style="border-bottom: none;">
+                    <td colspan="1" style="width:33%" class="patreon patreon_reverse_censoring patreon_nolock">
+                        <label for="only_once_mode_timer" class="patreon_only_once_mode patreon patreon_locked">Timer: </label>
+                        <input type="checkbox" id="only_once_mode_timer" name="only_once_mode_timer" class="patreon_only_once_mode patreon patreon_locked save_config" toggle="only_once_mode_timer_advanced">
+                        <br>
+                        <br>
+                        <div class="only_once_mode_timer_advanced" style="display: none;">
+                            <label for="only_once_mode_timer_refresh" class="patreon_only_once_mode patreon patreon_locked"> Auto refresh images</label>
+                            <input type="checkbox" id="only_once_mode_timer_refresh" name="only_once_mode_timer" class="patreon_only_once_mode patreon patreon_locked save_config" toggle="only_once_mode_timer_refresh_animations">
+                            <br>
+                            <br>
+                            <div id="only_once_mode_timer_refresh_animations" style="display: none;">
+                                Animation:
+                                <br>
+                                <label for="only_once_mode_timer_animation_none" style="width: 80px;display: inline-flex;">None</label>
+                                <input type="radio" id="only_once_mode_timer_animation_none" class="save_config" name="only_once_mode_timer_animations" value="0" checked><br>
+                                <label for="only_once_mode_timer_animation_progressbar" style="width: 80px;display: inline-flex;">Progressbar</label>
+                                <input type="radio" id="only_once_mode_timer_animation_progressbar" class="save_config" name="only_once_mode_timer_animations" value="1"><br>
+                                <label for="only_once_mode_timer_animation_black" style="width: 80px;display: inline-flex;">Darken</label>
+                                <input type="radio" id="only_once_mode_timer_animation_black" class="save_config" name="only_once_mode_timer_animations" value="2"><br>
+                                <label for="only_once_mode_timer_animation_blur" style="width: 80px;display: inline-flex;">Blur</label>
+                                <input type="radio" id="only_once_mode_timer_animation_blur" class="save_config" name="only_once_mode_timer_animations" value="3"><br>
+                            </div>
+                        </div>
+                    </td>
+                    <td colspan="2" style="width:66%">
+                        <div class="only_once_mode_timer_advanced" style="display: none;">
+                            <div>
+                                Min. Duration:
+                                <div id="oom-min-timer-container" class="oom-timer-container" style="display: block">
+                                    <input dir="rtl" type="number" id="oom-min-timer-days" class="oom-timer-input" min="0" max="1000" placeholder="00">
+                                    <label for="oom-min-timer-days">Days</label>
+                                    <input dir="rtl" type="number" id="oom-min-timer-hours" class="oom-timer-input" min="0" max="23" placeholder="00">
+                                    <label for="oom-min-timer-hours">Hours</label>
+                                    <input dir="rtl" type="number" id="oom-min-timer-minutes" class="oom-timer-input" min="0" max="59" placeholder="00">
+                                    <label for="oom-min-timer-minutes">Minutes</label>
+                                    <input dir="rtl" type="number" id="oom-min-timer-seconds" class="oom-timer-input" min="0" max="59" placeholder="00">
+                                    <label for="oom-min-timer-seconds">Seconds</label>
+                                </div>
+                            </div>
+                            <br>
+                            <div>
+                                Max. Duration:
+                                <div id="oom-max-timer-container" class="oom-timer-container" style="display: block">
+                                    <input dir="rtl" type="number" id="oom-max-timer-days" class="oom-timer-input" min="0" max="1000" placeholder="00">
+                                    <label for="oom-max-timer-days">Days</label>
+                                    <input dir="rtl" type="number" id="oom-max-timer-hours" class="oom-timer-input" min="0" max="23" placeholder="00">
+                                    <label for="oom-max-timer-hours">Hours</label>
+                                    <input dir="rtl" type="number" id="oom-max-timer-minutes" class="oom-timer-input" min="0" max="59" placeholder="00">
+                                    <label for="oom-max-timer-minutes">Minutes</label>
+                                    <input dir="rtl" type="number" id="oom-max-timer-seconds" class="oom-timer-input" min="0" max="59" placeholder="00">
+                                    <label for="oom-max-timer-seconds">Seconds</label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="only_once_mode_advanced" style="border-bottom: none;">
+                    <td colspan="2" style="width:66%">
+                        Message:
+                        <input type="text" id="only_once_mode_message" class="save_config" style="width: 100%;max-width: initial;">
+                    </td>
+                    <td colspan="1" style="width:33%">
+                        Date Time Format:
+                        <select id="only_once_mode_date_time_format" class="save_config">
+                            <option value="">None</option>
+                            <option value="local">Local</option>
+                            <option value="en-US">en-US</option>
+                            <option value="en-GB">en-GB</option>
+                            <option value="de-DE">de-DE</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="only_once_mode_advanced" style="border-bottom: none;">
+                    <td colspan="3" >
+                        <div>
+                            <div>Trigger: <b id="toggle_oom_labels"><i class="fas fa-exchange-alt" style="transform: translatey(2px);"></i></b></div>
+                        </div>
+                        <br>
+                        <div style="display: grid;grid-template-columns: repeat(2, 300px);grid-column-gap: 40px;">
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Belly: </div><input type="checkbox" class="oom-label save_config" label="BELLYEXPOSED"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Belly Covered: </div><input type="checkbox" class="oom-label save_config" label="BELLYCOVERED"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Buttocks: </div><input type="checkbox" class="oom-label save_config" label="BUTTOCKSEXPOSED"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Buttocks Cov.: </div><input type="checkbox" class="oom-label save_config" label="BUTTOCKSCOVERED"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Breast Female: </div><input type="checkbox" class="oom-label save_config" label="FEMALEBREASTEXPOSED"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Breast Female Cov.: </div><input type="checkbox" class="oom-label save_config" label="FEMALEBREASTCOVERED"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Genitalia Female: </div><input type="checkbox" class="oom-label save_config" label="FEMALEGENITALIAEXPOSED"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Genitalia Female Cov.: </div><input type="checkbox" class="oom-label save_config" label="FEMALEGENITALIACOVERED"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Genitalia Male: </div><input type="checkbox" class="oom-label save_config" label="MALEGENITALIAEXPOSED"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Genitalia Male Cov.: </div><input type="checkbox" class="oom-label save_config" label="MALEGENITALIACOVERED"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Breast Male: </div><input type="checkbox" class="oom-label save_config" label="MALEBREASTEXPOSED"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Breast Male Cov.: </div><input type="checkbox" class="oom-label save_config" label="MALEBREASTCOVERED"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Face Female: </div><input type="checkbox" class="oom-label save_config" label="FACEFEMALE"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Face Male: </div><input type="checkbox" class="oom-label save_config" label="FACEMALE"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Feet: </div><input type="checkbox" class="oom-label save_config" label="FEETEXPOSED"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Feet Covered: </div><input type="checkbox" class="oom-label save_config" label="FEETCOVERED"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Armpit: </div><input type="checkbox" class="oom-label save_config" label="ARMPITSEXPOSED"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Armpit Covered: </div><input type="checkbox" class="oom-label save_config" label="ARMPITSCOVERED"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Anus: </div><input type="checkbox" class="oom-label save_config" label="ANUSEXPOSED"></div>
+                            <div class="only_once_mode_label_container"><div class="only_once_mode_label">Anus Covered: </div><input type="checkbox" class="oom-label save_config" label="ANUSCOVERED"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="only_once_mode_advanced" style="border-bottom: none;">
+                    <td colspan="1" style="width:33%">
+                        <div>
+                            <div style="width:100px">Min Width</div><input type="number" id="only_once_mode_min_width" class="save_config" min="0" step="1" value="50"> px
+                        </div>
+                        <div>
+                            <div style="width:100px">Min Height</div><input type="number" id="only_once_mode_min_height" class="save_config" min="0" step="1" value="50"> px
+                        </div>
+                    </td>
+                    <td colspan="1" style="width:33%">
+                        <div>Display Classes<input id="only_once_mode_display_classes" type="checkbox" class="save_config"></div>
+                    </td>
+                    <td colspan="1" style="width:33%">
+                        <div style="color: #98001e;">Reset:</div>
+                        <button id="only_once_mode_reset" type="button">Reset Data</button>
+                        <!--<div style="color: #98001e;">Generate Test Data:</div>
+                        <button id="only_once_mode_test" type="button">Generate 50 entries</button>
+                        -->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <!-- Tools -->
+    <div id="content-batch_converter" class="content">
+        <header>
+            <h1>Batch-Converter</h1>
+            <p>
+                <span>Censor local files or folders:</span>
+            </p>
+        </header>
+        <section>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th colspan="3" style="text-align: center;">Batch Converter</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="width: 33%;text-align: center;">
+                        <label for="multi_file_batch_converter-file-selector" class="label-button batch_converter-file-selector-label">
+                            <i class="fa fa-file"></i> Multiple Files
+                        </label>
+                        <input type="file" id="multi_file_batch_converter-file-selector" class="batch_converter-file-selector"  multiple>
+                    </td>
+                    <td style="width: 33%;text-align: center;">
+                        <b style="display: flex;justify-content: center;align-items: center;height: 35px;">OR</b>
+                    </td>
+                    <td style="width: 33%;text-align: center;">
+                        <label for="folder_batch_converter-file-selector" class="label-button batch_converter-file-selector-label patreon patreon_locked patreon_batch_converter_folder">
+                            <i class="fa fa-folder"></i> Folder
+                        </label>
+                        <input type="file" id="folder_batch_converter-file-selector" class="batch_converter-file-selector" webkitdirectory directory  multiple>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 33%;text-align: center;">
+                        <div class="batch_converter_info">Files selected: <div id="batch_converter_file_count" class="batch_converter_number_info">0</div></div>
+                        <div class="batch_converter_info">Total images: <div id="batch_converter_total_images_count" class="batch_converter_number_info">0</div></div>
+                        <div class="batch_converter_info">Total size: <div id="batch_converter_total_file_size" class="batch_converter_number_info">0</div></div>
+
+                    </td>
+                    <td style="width: 33%;text-align: center;">
+                        <div id="batch_converter_png" class="batch_converter_info">PNG: <div id="batch_converter_png_count" class="batch_converter_number_info">0</div></div>
+                        <div id="batch_converter_jpg" class="batch_converter_info">JPG: <div id="batch_converter_jpg_count" class="batch_converter_number_info">0</div></div>
+                        <div id="batch_converter_bmp" class="batch_converter_info">BMP: <div id="batch_converter_bmp_count" class="batch_converter_number_info">0</div></div>
+                        <div id="batch_converter_webp" class="batch_converter_info">WebP: <div id="batch_converter_webp_count" class="batch_converter_number_info">0</div></div>
+                        <div id="batch_converter_avif" class="batch_converter_info">AVIF: <div id="batch_converter_avif_count" class="batch_converter_number_info">0</div></div>
+                        <div id="batch_converter_gif" class="batch_converter_info patreon_gif patreon">Gif: <div id="batch_converter_gif_count" class="batch_converter_number_info">0</div></div>
+                    </td>
+                    <td style="width: 33%;text-align: center;">
+                        <div class="batch_converter_info">Estimated time: <div id="batch_converter_estimated_time" class="batch_converter_number_info">-</div></div>
+                        <div class="batch_converter_info">Est. time left: <div id="batch_converter_estimated_time_left" class="batch_converter_number_info">-</div></div>
+                        <div class="batch_converter_info">Average: <div id="batch_converter_estimated_time_average" class="batch_converter_number_info">-</div></div>
+                        <div id="batch_converter_batch_info" style="display: none">
+                            <h2 style="display: block ruby;margin-top: 30px;margin-bottom: 0px;">
+                                <div id="batch_converter_current_index">0</div> / <div id="batch_converter_batch_size">0</div>
+                            </h2>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="text-align: center;">
+                        <div id="batch_converter_progress">
+                            <div id="batch_converter_progress_text">0%</div>
+                            <div id="batch_converter_progress_bar"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="text-align: center;">
+                        <label for="batch_converter_start-button" id="batch_converter_start-label">
+                            Start
+                        </label>
+                        <button id="batch_converter_start-button" type="button"  disabled></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="text-align: center;">
+                        <ul id="batch_converter_console"></ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <!-- Data -->
+    <div id="content-statistics" class="content">
+        <header>
+            <h1>Statistics</h1>
+            <p>
+                <span>Data & Information:</span>
+            </p>
+        </header>
+        <section>
+            <div>
+                Statistics <io-toggle id="statistics-io" label="statistics" class="statistics_enabled control statisticsToggle">
+                    <button id="statistics-button" label="statistics" class="statistics_enabled checkbox statisticsToggle"></button>
+                </io-toggle>
+                <button style="float: right;" type="button" id="reset-statistics">Reset</button>
+            </div>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th style="width: 230px">General</th>
+                    <th></th>
+                    <th style="text-align: right;">
+                        <div id="refresh-statistics">
+                            <i  class="fas fam fa-sync-alt"></i>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                    </td>
+                    <td style="text-align: right;">
+                        Total
+                    </td>
+                    <td style="text-align: right;">
+                        Filtered
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Images
+                    </td>
+                    <td style="text-align: right;">
+                        <div id="statistics-total"></div>
+                    </td>
+                    <td style="text-align: right;">
+                        <div id="statistics-total-positive"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Average duration
+                    </td>
+                    <td style="text-align: right;">
+
+                    </td>
+                    <td style="text-align: right;">
+                        <div id="statistics-total-average-duration"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &#187;&emsp;AI
+                    </td>
+                    <td style="text-align: right;">
+
+                    </td>
+                    <td style="text-align: right;">
+                        <div id="statistics-total-average-ai-duration"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &#187;&emsp;Painting
+                    </td>
+                    <td style="text-align: right;">
+
+                    </td>
+                    <td style="text-align: right;">
+                        <div id="statistics-total-average-paint-duration"></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!--
+            Type-Statistics
+            -->
+            <h2>Image Types</h2>
+            <table class="option-table">
+                <thead>
+                <!--
+                <tr>
+                    <th colspan="8" style="width: 230px">Image Types</th>
+                </tr>
+                -->
+                <th>
+                </th>
+                <th style="text-align: right;">
+                    JPG
+                </th>
+                <th style="text-align: right;">
+                    PNG
+                </th>
+                <th style="text-align: right;">
+                    BMP
+                </th>
+                <th style="text-align: right;">
+                    WebP
+                </th>
+                <th style="text-align: right;">
+                    AVIF
+                </th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        Images
+                    </td>
+                    <td style="text-align: right;">
+                        <div id="statistics-image-type-jpeg"></div>
+                    </td>
+                    <td style="text-align: right;">
+                        <div id="statistics-image-type-png"></div>
+                    </td>
+                    <td style="text-align: right;">
+                        <div id="statistics-image-type-bmp"></div>
+                    </td>
+                    <td style="text-align: right;">
+                        <div id="statistics-image-type-webp"></div>
+                    </td>
+                    <td style="text-align: right;">
+                        <div id="statistics-image-type-avif"></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <h2>Graphics Interchange Format</h2>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th style="text-align: right;">
+                        GIF
+                    </th>
+                    <th style="text-align: right;">
+                        Average Frame Count
+                    </th>
+                    <th style="text-align: right;">
+                        Average Processing Speed
+                    </th>
+                    <th style="text-align: right;">
+                        GIF-Thumbnails
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="text-align: right;">
+                        <div id="statistics-image-type-gif"></div>
+                    </td>
+                    <td style="text-align: right;">
+                        <div id="statistics-image-type-gif-average-frame-count"></div>
+                    </td>
+                    <td style="text-align: right;">
+                        <div id="statistics-image-type-gif-average-duration"></div>
+                    </td>
+                    <td style="text-align: right;">
+                        <div id="statistics-image-type-gif-thumb"></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <h2>Body Parts</h2>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th>
+                        Class
+                    </th>
+                    <th>
+                        Total
+                    </th>
+                    <th>
+                        Percentage
+                    </th>
+                </tr>
+                </thead>
+                <tbody id="statistics-klasses">
+                </tbody>
+            </table>
+            <h2>Videos</h2>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th>
+                        Videos processed
+                    </th>
+                    <th>
+                        Frames
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div id="statistics-video-total"></div>
+                    </td>
+                    <td>
+                        <div id="statistics-video-frames"></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <h2>Local Files</h2>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th>
+                        Files processed
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div id="statistics-local-files-total"></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <h2>Batch Converter</h2>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th>
+                        Files processed
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div id="statistics-batch-converter-total"></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <div id="content-security" class="content">
+        <header>
+            <h1>Security</h1>
+            <p>
+                <span>Lock & unlock the extension:</span>
+            </p>
+        </header>
+        <section>
+            <table class="option-table">
+                <thead>
+                <tr>
+                    <th colspan="2">Lock & Unlock</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="unlocked-show" style="height: 68px;min-height: 68px;">
+                    <td style="width: 100px;">
+                        <label class="label-button">
+                            <input type="checkbox" id="lock-password-check" checked> Password
+                        </label>
+                    </td>
+                    <td>
+                        <div id="lock-password-container" style="display:flex;">
+                            <div>
+                                <input type="password" id="lock-password" class="lock-match-password">
+                                <div id="lock-togglePassword" style="display: inline;margin-left: -22px;cursor: pointer;"><i class="far fa-eye" ></i></div>
+                                <div>Password</div>
+                            </div>
+                            <div style="margin-left: auto;">
+                                <input type="password" id="lock-confirm-password" class="lock-match-password">
+                                <div>Confirm</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="timer-tr-container" class="unlocked-show">
+                    <td style="width: 100px;">
+                        <label class="label-button">
+                            <input type="checkbox" id="lock-timer-check"> Timer
+                        </label>
+                    </td>
+                    <td>
+                        <div id="lock-timer-container" style="display: none">
+                            <input dir="rtl" type="number" id="lock-timer-days" class="lock-timer-input" min="0" max="1000" placeholder="00">
+                            <label for="lock-timer-days">Days</label>
+                            <input dir="rtl" type="number" id="lock-timer-hours" class="lock-timer-input" min="0" max="23" placeholder="00">
+                            <label for="lock-timer-hours">Hours</label>
+                            <input dir="rtl" type="number" id="lock-timer-minutes" class="lock-timer-input" min="0" max="59" placeholder="00">
+                            <label for="lock-timer-minutes">Minutes</label>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr id="lock-timer-plus-container" style="display: none">
+                    <td style="width: 100px;" colspan="2">
+                        <div>
+                            <div style="margin-bottom: 10px;">
+                                <a id="lock-timer-plus" href="#" style="text-decoration: none;">Timer + <b style="font-size: 10pt;font-family: monospace;">[<b class="toggle-div" style="color: #009879;">+</b>]</b></a>
+                            </div>
+                            <div id="lock-timer-plus-increase-container" style="display: none;">
+                                    Increase duration by
+                                        <input id="lock-timer-plus-increase-input" type="number"  min="0" max="10000" value="0">
+                                        <select id="lock-timer-plus-increase-format">
+                                            <option value="s">Seconds</option>
+                                            <option value="m">Minutes</option>
+                                            <option value="h">Hours</option>
+                                            <option value="d">Days</option>
+                                        </select>
+                                    <button id="lock-timer-plus-increase">Submit</button>
+                            </div>
+                            <div id="lock-timer-plus-advanced" style="display: none">
+                                Timer +:
+                                <io-toggle class="control timer-plus-toggle" style="transform: translatey(8px);">
+                                    <button class="checkbox timer-plus-toggle"></button>
+                                </io-toggle>
+                                <div style="margin-top: 10px;margin-bottom: 10px;">
+                                    <b>Increase</b> or <b>Decrease</b> your lock duration when certain labels are displayed:
+                                </div>
+                                <div style="display: grid;grid-template-columns: repeat(2, 300px);grid-column-gap: 40px;">
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Belly: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="BELLYEXPOSED"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Belly Covered: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="BELLYCOVERED"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Buttocks: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="BUTTOCKSEXPOSED"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Buttocks Cov.: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="BUTTOCKSCOVERED"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Breast Female: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="FEMALEBREASTEXPOSED"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Breast Female Cov.: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="FEMALEBREASTCOVERED"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Genitalia Female: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="FEMALEGENITALIAEXPOSED"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Genitalia Female Cov.: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="FEMALEGENITALIACOVERED"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Genitalia Male: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="MALEGENITALIAEXPOSED"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Genitalia Male Cov.: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="MALEGENITALIACOVERED"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Breast Male: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="MALEBREASTEXPOSED"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Breast Male Cov.: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="MALEBREASTCOVERED"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Face Female: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="FACEFEMALE"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Face Male: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="FACEMALE"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Feet: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="FEETEXPOSED"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Feet Covered: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="FEETCOVERED"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Armpit: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="ARMPITSEXPOSED"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Armpit Covered: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="ARMPITSCOVERED"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Anus: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="ANUSEXPOSED"> s</div>
+                                    <div class="timer_plus_label_container"><div class="timer_plus_label">Anus Covered: </div><input type="number" class="timer-plus-label" min="-1000" max="1000" value="0" label="ANUSCOVERED"> s</div>
+                                </div>
+                                <div style="margin-top: 10px;margin-bottom: 10px;">
+                                    Acknowledge Box Size: <input type="checkbox" id="lock-timer-plus-box-size-show" checked>
+                                    <input type="number" id="lock-timer-plus-box-size" min="0" max="1000000" value="50000">
+                                    <label for="lock-timer-plus-box-size">px</label><br>
+                                    Scales down the duration for boxes which are smaller than the given value.<br>
+                                    Helps to weight down thumbnails or boxes which are not the primary part of the image.
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="unlocked-show">
+                    <td style="width: 100px;" colspan="2">
+                        <div style="margin-bottom: 10px;">
+                            <a id="lock-show-advanced" href="#" style="text-decoration: none;">Advanced <b style="font-size: 10pt;font-family: monospace;">[<b class="toggle-div" style="color: #009879;">+</b>]</b></a>
+                        </div>
+                        <div id="lock-advanced" style="display: none;">
+                            Optional Lock:
+                            <input type="checkbox" id="lock-option-censor-type">
+                            <label for="lock-option-censor-type">Censor Type</label>
+                            <input type="checkbox" id="lock-option-video">
+                            <label for="lock-option-video">Video</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="unlocked-show">
+                    <td colspan="2">
+                        <div id="lock-p">
+                            <ul>
+                                <li>Locks the extension until manually unlocked.</li>
+                                <li>You can unlock the extension by entering your password.</li>
+                            </ul>
+                        </div>
+                        <div id="lock-t" style="display: none">
+                            <ul>
+                                <li>Locks the extension until the duration has passed.</li>
+                                <li style="color:#98001e;">You cannot unlock the extension manually.</li>
+                            </ul>
+                        </div>
+                        <div id="lock-pt" style="display: none">
+                            <ul>
+                                <li>Locks the extension until the duration has passed.</li>
+                                <li>You can unlock the extension by entering your password.</li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="unlocked-show">
+                    <td colspan="2">
+                        <button id="lock-button" check="true" style="width: 100%;" disabled>Lock</button>
+                    </td>
+                </tr>
+                <tr id="locked-inactive-password" style="border-bottom: none;display: none;">
+                    <td  style="display: flex">
+                        <b style="margin-right: 10px;">Unlock: </b><div><input type="password" id="unlock-password"><div>Password</div></div>
+                    </td>
+                    <td >
+                        <button id="unlock-button" class="locked-inactive" style="width: 100%;">Unlock</button>
+                    </td>
+                </tr>
+                <tr id="locked-inactive-timer" style="border-bottom: none;display: none;">
+                    <td colspan="2" style="font-size: 150%">
+                        <div style="text-align: center;margin-bottom: 20px;">
+                            <h2>Locked until:</h2>
+                        </div>
+                        <div style="text-align: center;">
+                            <div id="locked-days" class="locked-dur" style="display: inline-block;"></div> Days
+                            <div id="locked-hours" class="locked-dur" style="display: inline-block;"></div> Hours
+                            <div id="locked-minutes" class="locked-dur" style="display: inline-block;"></div> Minutes
+                            <div id="locked-seconds" class="locked-dur" style="display: inline-block;"></div> Seconds
+                        </div>
+                    </td>
+                </tr>
+                <tr class="locked-inactive" style="border-bottom: none;">
+                    <td colspan="2">
+                        <a id="unlock-password-info" href="#" style="text-decoration: none;">Help</a>
+                    </td>
+                </tr>
+                <tr id="unlock-info" style="display: none">
+                    <td colspan="2">
+                        <div class="unlock-info-box" style="font-size: 90%">
+                            <b>Emergency unlock:</b><br>
+                            You can emergency unlock your extension by joining our
+                            <a href="https://www.patreon.com/puryfi/membership">designated Patreon Tier.<br></a>
+                            After your extension has been unlocked you may cancel or downgrade your Patreon membership if you wish to do so.<br>
+                        </div>
+                        <div class="unlock-info-box">
+                            <b>1.</b> Join our Patreon as described above.
+                        </div>
+                        <div class="unlock-info-box">
+                            <b>2.</b> Bind your <a href="pury.fi">pury.fi</a> account to Patreon.
+                        </div>
+                        <div class="unlock-info-box">
+                            <b>3.</b> Login with your account in the extension and open this box again.
+                        </div>
+                        <div class="unlock-info-box">
+                            <button type="button" id="unlock-extension-patreon" disabled>Unlock</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="unlock-info-secret" style="display: none">
+                    <td colspan="2">
+                        <div class="unlock-info-box">
+                            <b>1.</b> Visit our Discord and contact a Moderator
+                        </div>
+                        <div class="unlock-info-box">
+                            <b>2.</b> Provide your security token:
+                            <div id="lock-token" style="color: white"></div>
+                        </div>
+                        <div class="unlock-info-box">
+                            <b>3.</b> Enter your given unlock token: <input type="text" id="unlock-token">
+                        </div>
+                    </td>
+                </tr>
+                <tr id="unlock-tool" style="display: none">
+                    <td colspan="2">
+                        <input type="text" id="unlock-tool-security-token">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    </div>
+</main>
+<div id="sidebar2">
+    <div class="fixed">
+        <header style="display: block ruby; height: 112px; width: 204px">
+        </header>
+        <b style="padding-left: 12px;">Extras:</b>
+        <nav>
+            <ul class="tabs">
+                <li>
+                    <a id="menu-entry-oom" href="#oom" class="tab tab-right" content="content-oom">Only Once Mode</a>
+                </li>
+                <li>
+                    <a href="#security" class="tab tab-right" content="content-security">Security</a>
+                </li>
+            </ul>
+        </nav>
+        <b style="padding-left: 12px;">Tools:</b>
+        <nav>
+            <ul class="tabs">
+                <li>
+                    <a id="batch_converter" href="#batch" class="tab tab-right" content="content-batch_converter">Batch Converter</a>
+                </li>
+                <li>
+                    <a id="gallery_viewer" href="https://pury.fi/localbrowser/gallerizer.html" class="tab tab-right" target="_blank">
+                        Gallery Viewer <i class="fas fa-external-link-alt" style="font-size: 70%;margin-left: 5px;height: 21px;"></i></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <b style="padding-left: 12px;">Other:</b>
+        <nav>
+            <ul class="tabs">
+                <li>
+                    <a href="#statistics" class="tab tab-right" content="content-statistics">Statistics</a>
+                </li>
+                <li>
+                    <a href="#help" class="tab" content="content-help">Help</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div style="position: fixed;bottom: 10px;right: 10px;">
+        <a href="https://github.com/Number0131" target="_blank" style="color: inherit; text-decoration: none;">
+            <b>By 0131 ©</b>
+        </a>
+    </div>
+</div>
+<script defer src="all.min.js"></script>
+<script src="../static/debug.js"></script>
+<script src="../static/context.js"></script>
+<script src="../static/sticker_collection.js"></script>
+<script src="../static/jquery-3.6.0.min.js"></script>
+<script src="../static/libs/jquery-ui.min.js"></script>
+<script src="../static/libs/xolor.umd.js"></script>
+<script src="../static/libs/jszip.js"></script>
+<script src="../static/libs/lz-string.js"></script>
+<script src="../static/utility.js"></script>
+<script src="../static/mimetools.js"></script>
+<script src="menu.js"></script>
+<script src="reverse_mode.js"></script>
+<script src="word_wall.js"></script>
+<script src="sticker.js"></script>
+<script src="oom.js"></script>
+<script src="settings.js"></script>
+<script src="lock.js"></script>
+<script src="options.js"></script>
+<script src="batch-converter.js"></script>
+<script src="tooltip.js"></script>
+<script src="patreon.js"></script>
+<script src="multiple_panel.js"></script>
+</body>
+</html>

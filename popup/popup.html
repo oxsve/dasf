@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <link rel="stylesheet" href="../options/css/toggle.css"/>
+      <link rel="stylesheet" href="popup.css"/>
+  </head>
+<body>
+<div id="overall-state" style="margin-bottom: 20px;display: block ruby;width:200px;min-width: 200px;">
+    <b id="onoff" style="padding: 5px;min-width: 36px;display: block;width: 32px;font-size: 1.2rem;padding-left: 0px;">ON</b>
+    <io-toggle  id="onoff-toggle" class="control onoff" check="true" style="transform: translatey(2px);">
+        <button id="onoff-button" class="checkbox onoff" check="true"></button>
+    </io-toggle>
+    <i style="margin-left: 20px;" class="locked-icon fas fa-lock" ></i>
+</div>
+<div id="options">
+    <i  class="fas fa-cog"></i>
+</div>
+<div id="quick-setting-container" style="display:none">
+    <b>Quick Settings:</b>
+    <select id="settings-select" style="min-width: 100%;max-width: 100px;">
+    </select>
+</div>
+<div id="censor-types-container" class="typeButtonContainer">
+  <h2 style="margin-top: 0px;">Censor Type</h2>
+  <div id="censor-types" class="typeButtonContainer">
+      <button class="typeButton type0 selected" type="button" id="normal"><b>Normal</b></button>
+      <button class="typeButton type1" type="button" id="blur"><b>Blur</b></button>
+      <button class="typeButton type2" type="button" id="pixel"><b>Pixel</b></button>
+      <button class="typeButton type3" type="button" id="black"><b>Black</b></button>
+      <button class="typeButton type4" type="button" id="triangle"><b style="margin-left: -2px;font-size: 85%;">Triangle</b></button>
+      <button class="typeButton type5" type="button" id="box"><b>Box</b></button>
+      <button class="typeButton type6" type="button" id="glitch"><b>Glitch</b></button>
+      <button class="typeButton type7" type="button" id="sticker"><b>Sticker</b></button>
+      <button class="typeButton type8" type="button" id="sobel"><b>Sobel</b></button>
+      <button class="typeButton type9" type="button" id="splatter"><b>Splatter</b></button>
+  </div>
+</div>
+<div id="body-labels-container" class="labelButtonContainer">
+  <h2>Censored Body Parts</h2>
+  <div id="body-labels" class="labelButtonContainer">
+      <button class="labelButton fface" type="button" id="FACEFEMALE"><b>♀ Face</b></button>
+      <button class="labelButton mface" type="button" id="FACEMALE"><b>♂ Face</b></button>
+
+      <button class="labelButton apite" type="button" id="ARMPITSEXPOSED"><b>Armpit</b></button>
+      <button class="labelButton apitc" type="button" id="ARMPITSCOVERED"><b>Armpit</b></button>
+
+      <button class="labelButton ftite" type="button" id="FEMALEBREASTEXPOSED"><b>♀ Breast</b></button>
+      <button class="labelButton ftitc" type="button" id="FEMALEBREASTCOVERED"><b>♀ Breast</b></button>
+
+      <button class="labelButton mtite" type="button" id="MALEBREASTEXPOSED"><b>♂ Breast</b></button>
+      <button class="labelButton mtitc" type="button" id="MALEBREASTCOVERED"><b>♂ Breast</b></button>
+
+      <button class="labelButton bellye" type="button" id="BELLYEXPOSED"><b>Belly</b></button>
+      <button class="labelButton bellyc" type="button" id="BELLYCOVERED"><b>Belly</b></button>
+
+      <button class="labelButton butte" type="button" id="BUTTOCKSEXPOSED"><b>Butt</b></button>
+      <button class="labelButton buttc" type="button" id="BUTTOCKSCOVERED"><b>Butt</b></button>
+
+      <button class="labelButton anuse" type="button" id="ANUSEXPOSED"><b>Anus</b></button>
+      <button class="labelButton anusc" type="button" id="ANUSCOVERED"><b>Anus</b></button>
+
+      <button class="labelButton fgene" type="button" id="FEMALEGENITALIAEXPOSED"><b>♀ Gen.</b></button>
+      <button class="labelButton fgenc" type="button" id="FEMALEGENITALIACOVERED"><b>♀ Gen.</b></button>
+
+      <button class="labelButton mgene" type="button" id="MALEGENITALIAEXPOSED"><b>♂ Gen.</b></button>
+      <button class="labelButton mgenc" type="button" id="MALEGENITALIACOVERED"><b>♂ Gen.</b></button>
+
+      <button class="labelButton feete" type="button" id="FEETEXPOSED"><b>Feet</b></button>
+      <button class="labelButton feetc" type="button" id="FEETCOVERED"><b>Feet</b></button>
+  </div>
+</div>
+<div id="timer-container" style="display: none;">
+    <div style="text-align: center;margin-bottom: 20px;">
+        <h2>Locked until:</h2>
+    </div>
+    <div style="text-align: center;">
+        <div id="locked-days" class="locked-dur" style="display: inline-block;"></div> Days
+        <div id="locked-hours" class="locked-dur" style="display: inline-block;"></div> Hours
+        <div id="locked-minutes" class="locked-dur" style="display: inline-block;"></div> Minutes
+        <div id="locked-seconds" class="locked-dur" style="display: inline-block;"></div> Seconds
+    </div>
+</div>
+<div id="reverse_mode" style="display: none;padding-left: 5px;padding-right: 5px;">
+      <hr style="margin-bottom: 8px;clear: both;visibility: hidden;">
+      <b id="toggle_labels">
+          <i class="fas fa-exchange-alt"></i>
+      </b>
+      <div style="float: right; display: inline-flex">
+          <b>Reverse Mode:&nbsp;&nbsp;</b>
+          <div id="reverse_censoring">
+              <io-toggle id="reverse_censoring-io" label="reverse_censoring" class="control reverseToggle">
+                  <button id="reverse_censoring-button" label="reverse_censoring" class="checkbox reverseToggle"></button>
+              </io-toggle>
+          </div>
+      </div>
+</div>
+    <script src="../static/jquery-3.6.0.min.js"></script>
+    <script src="popup.js"></script>
+    <script src="../static/utility.js"></script>
+    <script src="../options/options.js"></script>
+    <script src="../options/settings.js"></script>
+    <script src="../options/lock.js"></script>
+    <script defer src="/options/all.min.js"></script>
+</body>
+</html>

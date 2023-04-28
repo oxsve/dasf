@@ -1,0 +1,26 @@
+.ui-tooltip {
+    background: #111;
+    border: 2px solid;
+    border-color: #009879 !important;
+    padding: 10px 20px;
+    color: #009879;
+    border-radius: 2px;
+    font: bold 12px "Source Sans Pro", Sans-Serif;
+    //text-transform: uppercase;
+    box-shadow: 0 0 2px #111;
+    max-width: 350px;
+    //padding: 5px 5px;
+}
+.ui-tooltip h3 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.ui-tooltip-support{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.ui-tooltip-support ul{
+    columns: 2;
+    margin-top: 2px;
+    margin-bottom: 0px;
+}

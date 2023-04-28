@@ -1,0 +1,226 @@
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: inherit;
+  color: #009879;
+  background-color: #111;
+  font-size: 1rem;
+  line-height: 1.3rem;
+  justify-content: center;
+  margin: 16px 16px;
+}
+
+button.typeButton {
+  color: white;
+  background-size: cover;
+  background-position: center center;
+  width: 50px;
+  height: 50px;
+  border-radius: 4px 4px 4px 4px;
+  text-shadow: 0 0 9px #000000;
+  -webkit-filter: grayscale(80%);
+  text-align: center;
+  cursor: pointer;
+}
+button.typeButton b {
+  padding: 0px;
+  font-size: 80%;
+}
+button.selected {
+  border-color: #16a085;
+  -webkit-filter: grayscale(0%);
+}
+button.type0 {
+  background-image: url(../images/buttons/normal.png);
+}
+button.type1 {
+  background-image: url(../images/buttons/blur.png);
+}
+button.type2 {
+  background-image: url(../images/buttons/pixel.png);
+}
+button.type3 {
+  background-image: url(../images/buttons/black.png);
+}
+button.type4 {
+  background-image: url(../images/buttons/triangle.png);
+}
+button.type5 {
+  background-image: url(../images/buttons/box.png);
+}
+button.type6 {
+  background-image: url(../images/buttons/glitch.png);
+}
+button.type7 {
+  background-image: url(../images/buttons/sticker.png);
+}
+button.type8 {
+  background-image: url(../images/buttons/sobel.png);
+}
+button.type9 {
+  background-image: url(../images/buttons/splatter.png);
+  font-size: 95%;
+}
+button.labelButton {
+  flex: 0 0 50%;
+  font-size: 80%;
+  color: white;
+  background-size:cover;
+  background-position:center center;
+  width: 50px;
+  height: 50px;
+  max-width: 50px;
+  max-height: 50px;
+  text-align: center;
+  padding: 0px;
+  border-radius: 4px 4px 4px 4px;
+  text-shadow: 0 0 9px #000000;
+  -webkit-filter: grayscale(80%);
+  margin-bottom: 3px;
+  cursor: pointer;
+}
+.typeButtonContainer{
+  display: table-row;
+  flex-wrap: wrap;
+  width: 262px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.labelButtonContainer {
+  display: table-row;
+  flex-wrap: wrap;
+  width: 262px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.labelButton b{
+  display: ruby-base;
+}
+
+#options{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 150%;
+  cursor: pointer;
+}
+.labelButton b {visibility: hidden;}
+.labelButton:hover b {visibility: visible;}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+
+button.typeButton.fullgray {
+  -webkit-filter: grayscale(100%);
+}
+
+
+button.selected.fullgray {
+  -webkit-filter: grayscale(100%);
+}
+
+
+button.selected {
+  border-color: #16a085;
+  -webkit-filter: grayscale(0%);
+}
+
+button.fface {
+  background-image: url(../images/buttons/face_female.png);
+}
+
+button.mface {
+  background-image: url(../images/buttons/face_male.png);
+}
+
+button.fgene {
+  background-image: url(../images/buttons/genitals_female.png);
+}
+
+button.fgenc {
+  background-image: url(../images/buttons/genitals_female_covered.png);
+}
+
+button.mgene {
+  background-image: url(../images/buttons/genitals_male.png);
+}
+
+button.mgenc {
+  background-image: url(../images/buttons/genitals_male_covered.png);
+}
+
+button.ftite {
+  background-image: url(../images/buttons/breasts_female.png);
+}
+
+button.ftitc {
+  background-image: url(../images/buttons/breasts_female_covered.png);
+}
+
+button.mtite {
+  background-image: url(../images/buttons/breasts_male.png);
+}
+
+button.mtitc {
+  background-image: url(../images/buttons/breasts_male_covered.png);
+}
+
+button.butte {
+  background-image: url(../images/buttons/buttocks_exposed.png);
+}
+
+button.buttc {
+  background-image: url(../images/buttons/buttocks_covered.png);
+}
+
+button.bellye {
+  background-image: url(../images/buttons/belly.png);
+}
+
+button.bellyc {
+  background-image: url(../images/buttons/belly_covered.png);
+}
+
+button.anuse {
+  background-image: url(../images/buttons/anus_exposed.png);
+}
+button.anusc {
+  background-image: url(../images/buttons/anus_covered.png);
+}
+button.apite {
+  background-image: url(../images/buttons/armpit_exposed.png);
+}
+button.apitc {
+  background-image: url(../images/buttons/armpit_covered.png);
+}
+button.feete {
+  background-image: url(../images/buttons/feet_exposed.png);
+}
+button.feetc {
+  background-image: url(../images/buttons/feet_covered.png);
+}
+
+button.checkbox {
+  transform: translateY(-8px) translateX(0px);
+}
+button.checkbox[check] {
+  transform: translateY(-8px) translateX(16px);
+}
+io-toggle {
+  transform: translateY(-2px) translatey(6px);
+}
+.locked-inactive{
+  display: none;
+}
+.unlocked-hide{
+  display: none;
+}
+#quick-setting-container{
+  position: absolute;
+  top: 40px;
+  right: 16px;
+  max-width: 100px;
+}
+.locked-dur{
+  color: #f76753;
+}

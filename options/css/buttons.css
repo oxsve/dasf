@@ -1,0 +1,205 @@
+button.imageButton{
+	color: white;
+	background-size: cover;
+	background-position: center center;
+	width: 50px;
+	height: 50px;
+	border-radius: 4px 4px 4px 4px;
+	text-shadow: 0 0 9px #000000;
+	-webkit-filter: grayscale(40%);
+	padding: 0px;
+}
+button.typeButton {
+	color: white;
+	background-size: cover;
+	background-position: center center;
+	width: 50px;
+	height: 50px;
+	border-radius: 4px 4px 4px 4px;
+	text-shadow: 0 0 9px #000000;
+	-webkit-filter: grayscale(40%);
+	cursor: pointer;
+}
+button.iconButton {
+	color: white;
+	background-size: cover;
+	background-position: center center;
+	width: 50px;
+	height: 50px;
+	border-radius: 4px 4px 4px 4px;
+	text-shadow: 0 0 9px #000000;
+	-webkit-filter: grayscale(40%);
+	cursor: pointer;
+}
+select.save_config{
+	width: 108px;
+}
+button.typeButton b{
+	padding: 0px;
+	font-size: 80%;
+}
+button.selected {
+	border-color: #16a085;
+	-webkit-filter: grayscale(0%);
+}
+button.type0 {
+	background-image: url(../../images/buttons/normal.png);
+}
+button.type1 {
+	background-image: url(../../images/buttons/blur.png);
+}
+button.type2 {
+	background-image: url(../../images/buttons/pixel.png);
+}
+button.type3 {
+	background-image: url(../../images/buttons/black.png);
+}
+button.type4 {
+	background-image: url(../../images/buttons/triangle.png);
+}
+button.type5 {
+	background-image: url(../../images/buttons/box.png);
+}
+button.type6 {
+	background-image: url(../../images/buttons/glitch.png);
+}
+button.type7 {
+	background-image: url(../../images/buttons/sticker.png);
+}
+button.type8 {
+	background-image: url(../../images/buttons/sobel.png);
+}
+button.type9 {
+	background-image: url(../../images/buttons/splatter.png);
+	font-size: 90%;
+}
+button.labelButton {
+	flex: 0 0 50%;
+	color: white;
+	background-size:cover;
+	background-position:center center;
+	width: 46px;
+	height: 46px;
+	max-width: 46px;
+	max-height: 46px;
+	text-align: center;
+	padding: 0px;
+	border-radius: 4px 4px 4px 4px;
+	text-shadow: 0 0 9px #000000;
+	-webkit-filter: grayscale(80%);
+	cursor: pointer;
+}
+
+.labelButton b {visibility: hidden;}
+.labelButton:hover b {visibility: visible;}
+
+button::-moz-focus-inner {
+	border: 0;
+}
+
+button.typeButton.fullgray {
+	-webkit-filter: grayscale(100%);
+}
+
+
+button.selected.fullgray {
+	-webkit-filter: grayscale(100%);
+}
+
+button.selected {
+	border-color: #16a085;
+	-webkit-filter: grayscale(0%);
+}
+
+button.fface {
+	background-image: url(../../images/buttons/face_female.png);
+}
+
+button.mface {
+	background-image: url(../../images/buttons/face_male.png);
+}
+
+button.fgene {
+	background-image: url(../../images/buttons/genitals_female.png);
+}
+
+button.fgenc {
+	background-image: url(../../images/buttons/genitals_female_covered.png);
+}
+
+button.mgene {
+	background-image: url(../../images/buttons/genitals_male.png);
+}
+
+button.mgenc {
+	background-image: url(../../images/buttons/genitals_male_covered.png);
+}
+
+button.ftite {
+	background-image: url(../../images/buttons/breasts_female.png);
+}
+
+button.ftitc {
+	background-image: url(../../images/buttons/breasts_female_covered.png);
+}
+
+button.mtite {
+	background-image: url(../../images/buttons/breasts_male.png);
+}
+
+button.mtitc {
+	background-image: url(../../images/buttons/breasts_male_covered.png);
+}
+
+button.butte {
+	background-image: url(../../images/buttons/buttocks_exposed.png);
+}
+
+button.buttc {
+	background-image: url(../../images/buttons/buttocks_covered.png);
+}
+
+button.bellye {
+	background-image: url(../../images/buttons/belly.png);
+}
+
+button.bellyc {
+	background-image: url(../../images/buttons/belly_covered.png);
+}
+
+button.anuse {
+	background-image: url(../../images/buttons/anus_exposed.png);
+}
+button.anusc {
+	background-image: url(../../images/buttons/anus_covered.png);
+}
+button.apite {
+	background-image: url(../../images/buttons/armpit_exposed.png);
+}
+button.apitc {
+	background-image: url(../../images/buttons/armpit_covered.png);
+}
+button.feete {
+	background-image: url(../../images/buttons/feet_exposed.png);
+}
+button.feetc {
+	background-image: url(../../images/buttons/feet_covered.png);
+}
+button.icon-classic {
+	background-image: url(../../icons/icon_64.png);
+}
+button.icon-minimalistic {
+	background-image: url(../../icons/icon_64_minimalistic.png);
+}
+button.icon-eye {
+	background-image: url(../../icons/icon_64_eye.png);
+}
+#debug {
+	background-image: url(../../images/buttons/debug.png);
+	font-size: 80%;
+}
+.labelButtonContainer {
+	display: inline-flex;
+	flex-wrap: wrap;
+	width: 100px;
+}
